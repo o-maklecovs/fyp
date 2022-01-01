@@ -1,0 +1,27 @@
+{
+  "name": "fyp",
+  "version": "1.0.0",
+  "description": "Final year project",
+  "main": "index.js",
+  "scripts": {
+    "start": "node app",
+    "dev": "nodemon app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://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@github.com/o-maklecovs/fyp.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/o-maklecovs/fyp/issues"
+  },
+  "homepage": "https://github.com/o-maklecovs/fyp#readme",
+  "dependencies": {
+    "express": "^4.17.2",
+    "express-handlebars": "^6.0.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.15"
+  }
+}
