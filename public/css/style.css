@@ -12,9 +12,13 @@ a {
 a:hover {
     text-decoration: underline;
 }
+#nav-title {
+    color: #000;
+    text-decoration: none;
+}
 
 /* Forms */
-input[type=text] {
+input[type=text], input[type=password] {
     padding: 0.4em;
     border: 1px #333 solid;
     border-radius: 0.2em;
@@ -57,4 +61,14 @@ input[type=submit]:hover {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
+}
+
+/* Login form */
+#content-login {
+    display: grid;
+    grid-template-columns: 1fr;
+    justify-items: center;
+}
+#content-login form * {
+    margin-bottom: 1.2em;
 }

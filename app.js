@@ -11,6 +11,7 @@ app.set('views', './views');
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => res.render('index', { title: 'myJobs' }));
+app.get('/login', (req, res) => res.render('login', { title: 'myJobs - Login' }));
 
 // change later to env variable
 app.listen(5000);
