@@ -1,8 +1,15 @@
 <div id="content-index">
     <h3>Search for jobs</h3>
-    <div id="search-form">
+    <div>
         <form action="/jobs" method="get">
-            <input type="text" name="search-query" size="70">
+            <input type="text" name="job_title" size="70">
+            {{!-- Cities will be pulled from database --}}
+            <select name="city">
+                <option value="London">London</option>
+                <option value="Birmingham">Birmingham</option>
+                <option value="Manchester">Manchester</option>
+                <option value="Cambridge">Cambridge</option>
+            </select>
             <input type="submit" value="Search">
         </form>
     </div>

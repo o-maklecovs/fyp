@@ -18,7 +18,7 @@ a:hover {
 }
 
 /* Forms */
-input[type=text], input[type=password] {
+input[type=text], input[type=password], select {
     padding: 0.4em;
     border: 1px #333 solid;
     border-radius: 0.2em;
@@ -65,10 +65,33 @@ input[type=submit]:hover {
 
 /* Login form */
 #content-login {
+    margin-top: 1em;
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
 }
 #content-login form * {
     margin-bottom: 1.2em;
+}
+
+/* Jobs list */
+#content-jobs {
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 1em;
+}
+.jobs-item {
+    border: 1px solid #ccc;
+    border-radius: 0.2em;
+    padding: 0.6em;
+}
+.jobs-item span {
+    margin-right: 1em;
+}
+.job-item-title {
+    font-weight: bold;
+}
+.date {
+    color: #555;
 }

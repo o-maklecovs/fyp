@@ -13,5 +13,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => res.render('index', { title: 'myJobs' }));
 app.get('/login', (req, res) => res.render('login', { title: 'myJobs - Login' }));
 
+// /jobs get controller will be expanded
+// TODO: change "jobs in your area" to "jobs in [selected city]"
+app.get('/jobs', (req, res) => res.render('jobs', { title: 'myJobs - Jobs your area' }));
+
 // change later to env variable
 app.listen(5000);
