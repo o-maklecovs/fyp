@@ -1,7 +1,7 @@
 /* Accent colour: #ff8000 */
 
 body {
-    font-family: sans-serif;
+    font: 1em sans-serif;
 }
 
 /* Links */
@@ -19,11 +19,13 @@ a:hover {
 
 /* Forms */
 input[type=text], input[type=password], select {
+    font-size: 1em;
     padding: 0.4em;
     border: 1px #333 solid;
     border-radius: 0.2em;
 }
 input[type=submit] {
+    font-size: 1em;
     padding: 0.5em 1em;
     border: none;
     background-color: #ff8000;
@@ -113,13 +115,6 @@ input[type=submit]:hover {
 #job-body {
     margin-bottom: 1em;
 }
-.apply-btn {
-    color: #fff;
-    background-color: #ff8000;
-    border-radius: 0.2em;
-    padding: 0.5em 1em;
-}
-.apply-btn:hover {
-    background-color: #db6e00;
-    text-decoration: none;
+#content-job input[type=file] {
+    margin-bottom: 1em;
 }

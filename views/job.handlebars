@@ -16,6 +16,11 @@
         </p>
     </div>
     <div>
-        <a href="/apply" class="apply-btn">Apply</a>
+        <form action="/job" method="post">
+            <label for="upload-file">Upload your CV</label><br>
+            <input type="file" name="upload-file"><br>
+            <input type="submit" value="Apply">
+        </form>
     </div>
+    {{!-- A meessage will appear notifying the user that they have successfully sent an application --}}
 </div>
