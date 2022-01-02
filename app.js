@@ -17,5 +17,7 @@ app.get('/login', (req, res) => res.render('login', { title: 'myJobs - Login' })
 // TODO: change "jobs in your area" to "jobs in [selected city]"
 app.get('/jobs', (req, res) => res.render('jobs', { title: 'myJobs - Jobs your area' }));
 
+app.get('/job', (req, res) => res.render('job', { title: 'myJobs - Job title' }));
+
 // change later to env variable
 app.listen(5000);

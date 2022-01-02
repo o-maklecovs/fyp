@@ -24,7 +24,7 @@ input[type=text], input[type=password], select {
     border-radius: 0.2em;
 }
 input[type=submit] {
-    padding: 0.5em;
+    padding: 0.5em 1em;
     border: none;
     background-color: #ff8000;
     color: #fff;
@@ -94,4 +94,32 @@ input[type=submit]:hover {
 }
 .date {
     color: #555;
+}
+
+/* Job screen */
+#content-job {
+    margin-top: 1em;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+#job-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+}
+#job-details span {
+    margin-right: 1em;
+}
+#job-body {
+    margin-bottom: 1em;
+}
+.apply-btn {
+    color: #fff;
+    background-color: #ff8000;
+    border-radius: 0.2em;
+    padding: 0.5em 1em;
+}
+.apply-btn:hover {
+    background-color: #db6e00;
+    text-decoration: none;
 }
