@@ -137,3 +137,10 @@ input[type=text], input[type=password], select {
 #profile form *:not(label) {
     margin-bottom: 0.8em;
 }
+
+/* Saved jobs page */
+.profile-jobs-list {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0.8em;
+}
