@@ -1,26 +1,21 @@
-<div id="content-job">
-    <div id="job-title">
-        <h2>Job title</h2>
-        <span class="date">02/01/2022</span>
+<main id="job">
+    <div>
+        <h3>Job title</h3>
+        <span class="company">Company Name</span>
     </div>
-    <div id="job-details">
-        <span>Google</span>
-        <span>London</span>
-    </div>
-    <div id="job-body">
+    <span>02/01/2022</span>
+    <span>London</span>
+    <article>
         <p>
             Lorem ipsum, dolor sit amet consectetur adipisicing elit. Incidunt, unde aperiam harum pariatur quas, et necessitatibus odit facere hic ipsam velit! Ipsam, et. Et vero maiores, reiciendis perspiciatis qui laborum dolores ut commodi. Dolorum laudantium ea quo repellendus illum? Earum.
         </p>
         <p>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio provident atque libero reprehenderit sit voluptas vitae ad eos! Repellendus, voluptatibus!
         </p>
-    </div>
-    <div>
-        <form action="/job" method="post">
-            <label for="upload-file">Upload your CV</label><br>
-            <input type="file" name="upload-file"><br>
-            <input type="submit" value="Apply">
-        </form>
-    </div>
-    {{!-- A meessage will appear notifying the user that they have successfully sent an application --}}
-</div>
+    </article>
+    <form action="/job" method="post">
+        <label for="upload-file">Upload your CV</label><br>
+        <input type="file" name="upload-file"><br>
+        <input type="submit" value="Apply">
+    </form>
+</main>

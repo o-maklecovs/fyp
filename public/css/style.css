@@ -2,6 +2,8 @@
 
 body {
     font: 1em sans-serif;
+    width: 70%;
+    margin: auto;
 }
 
 /* Links */
@@ -18,103 +20,81 @@ a:hover {
 }
 
 /* Forms */
-input[type=text], input[type=password], select {
-    font-size: 1em;
-    padding: 0.4em;
-    border: 1px #333 solid;
-    border-radius: 0.2em;
+input, select {
+    font: 1em sans-serif;
 }
 input[type=submit] {
-    font-size: 1em;
-    padding: 0.5em 1em;
     border: none;
-    background-color: #ff8000;
+    background: #ff8000;
     color: #fff;
+    padding: 0.3em 1em;
     border-radius: 0.2em;
 }
 input[type=submit]:hover {
-    background-color: #db6e00;
     cursor: pointer;
+    background: #e47200;
 }
-
-#container {
-    width: 60%;
-    margin: auto;
+input[type=text], input[type=password], select {
+    border: 1px solid #333;
+    border-radius: 0.2em;
+    padding: 0.2em;
 }
 
 /* Navigation bar */
-#navbar {
+#nav {
     display: flex;
     justify-content: space-between;
     align-items: baseline;
+    margin-bottom: 1em;
 }
-#navbar h1 {
-    display: inline;
-}
-
-/* Footer */
-/* #footer {
-    text-align: center;
-    margin-top: 4em;
-} */
 
 /* Landing page */
-#content-index {
+#index {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
 }
 
 /* Login form */
-#content-login {
-    margin-top: 1em;
+#login {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
 }
-#content-login form * {
-    margin-bottom: 1.2em;
+#login form {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+#login form *:not(label) {
+    margin-bottom: 0.8em;
 }
 
 /* Jobs list */
-#content-jobs {
-    margin-top: 1em;
+#list {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 1em;
+    grid-gap: 0.8em;
 }
-.jobs-item {
-    border: 1px solid #ccc;
-    border-radius: 0.2em;
-    padding: 0.6em;
+.item {
+    display: grid;
+    grid-template-columns: 4fr 1fr 1fr;
+    grid-gap: 0.4em;
+    align-items: center;
 }
-.jobs-item span {
-    margin-right: 1em;
-}
-.job-item-title {
-    font-weight: bold;
-}
-.date {
-    color: #555;
+.company {
+    color: #777;
+    font-size: 0.8em;
 }
 
 /* Job screen */
-#content-job {
+#job {
     margin-top: 1em;
     display: grid;
     grid-template-columns: 1fr;
 }
-#job-title {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-}
-#job-details span {
-    margin-right: 1em;
-}
-#job-body {
+#job article {
     margin-bottom: 1em;
 }
-#content-job input[type=file] {
+#job input[type=file] {
     margin-bottom: 1em;
 }

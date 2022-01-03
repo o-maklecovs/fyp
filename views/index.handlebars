@@ -1,16 +1,13 @@
-<div id="content-index">
+<main id="index">
     <h3>Search for jobs</h3>
-    <div>
-        <form action="/jobs" method="get">
-            <input type="text" name="job_title" size="40">
-            {{!-- Cities will be pulled from database --}}
-            <select name="city">
-                <option value="London">London</option>
-                <option value="Birmingham">Birmingham</option>
-                <option value="Manchester">Manchester</option>
-                <option value="Cambridge">Cambridge</option>
-            </select>
-            <input type="submit" value="Search">
-        </form>
-    </div>
-</div>
+    <form action="/list" method="get">
+        <input type="text" name="job_title" size="50">
+        <select name="city">
+            <option value="London">London</option>
+            <option value="Birmingham">Birmingham</option>
+            <option value="Manchester">Manchester</option>
+            <option value="Cambridge">Cambridge</option>
+        </select>
+        <input type="submit" value="Search">
+    </form>
+</main>
