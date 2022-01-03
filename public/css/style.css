@@ -42,10 +42,13 @@ input[type=text], input[type=password], select {
 
 /* Navigation bar */
 #nav {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: 6fr 1fr 1fr;
     align-items: baseline;
     margin-bottom: 1em;
+}
+#nav div {
+    justify-self: end;
 }
 
 /* Landing page */
@@ -60,7 +63,6 @@ input[type=text], input[type=password], select {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
-    grid-gap: 0.8em;
 }
 #login form {
     display: grid;
