@@ -20,17 +20,17 @@ a:hover {
 }
 
 /* Forms */
-input, select {
+input, select, button {
     font: 1em sans-serif;
 }
-input[type=submit] {
+input[type=submit], button {
     border: none;
     background: #ff8000;
     color: #fff;
     padding: 0.3em 1em;
     border-radius: 0.2em;
 }
-input[type=submit]:hover {
+input[type=submit]:hover, button:hover {
     cursor: pointer;
     background: #e47200;
 }
@@ -60,6 +60,7 @@ input[type=text], input[type=password], select {
     display: grid;
     grid-template-columns: 1fr;
     justify-items: center;
+    grid-gap: 0.8em;
 }
 #login form {
     display: grid;
@@ -97,4 +98,19 @@ input[type=text], input[type=password], select {
 }
 #job input[type=file] {
     margin-bottom: 1em;
+}
+
+/* Registration screen */
+#register {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 0.8em;
+    justify-items: center;
+}
+#register form {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+#register form *:not(label) {
+    margin-bottom: 0.8em;
 }

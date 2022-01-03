@@ -10,14 +10,17 @@ app.set('views', './views');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => res.render('index', { title: 'myJobs' }));
+app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home' }));
+
 app.get('/login', (req, res) => res.render('login', { title: 'myJobs - Login' }));
 
-// /jobs get controller will be expanded
-// TODO: change "jobs in your area" to "jobs in [selected city]"
-app.get('/list', (req, res) => res.render('list', { title: 'myJobs - Jobs your area' }));
+app.get('/list', (req, res) => res.render('list', { title: 'myJobs - Jobs in your area' }));
 
 app.get('/job', (req, res) => res.render('job', { title: 'myJobs - Job title' }));
+
+app.get('/register', (req, res) => res.render('register', { title: 'myJobs - Register' }));
+
+app.get('/register-employer', (req, res) => res.render('register_employer', { title: 'myJobs - Register as employer' }));
 
 // change later to env variable
 app.listen(5000);
