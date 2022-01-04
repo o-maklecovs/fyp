@@ -34,7 +34,7 @@ input[type=submit]:hover, button:hover {
     cursor: pointer;
     background: #e47200;
 }
-input[type=text], input[type=password], select {
+input[type=text], input[type=password], select, textarea {
     border: 1px solid #333;
     border-radius: 0.2em;
     padding: 0.2em;
@@ -143,4 +143,16 @@ input[type=text], input[type=password], select {
     display: grid;
     grid-template-columns: 1fr;
     grid-gap: 0.8em;
+}
+
+#job-form {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+#job-form form {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+#job-form form *:not(label) {
+    margin-bottom: 0.8em;
 }

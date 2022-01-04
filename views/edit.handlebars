@@ -1,0 +1,17 @@
+<main id="job-form">
+    <h3>Edit job posting</h3>
+    <form action="/job/edit" method="post">
+        <label for="title">Title</label>
+        <input type="text" name="title">
+        <label for="city">City</label>
+        <select name="city">
+            <option value="london">London</option>
+            <option value="birmingham">Birmingham</option>
+            <option value="manchester">Manchester</option>
+            <option value="leicester">Leicester</option>
+        </select>
+        <label for="description">Description</label>
+        <textarea name="description" rows="20"></textarea>
+        <div><input type="submit" value="Submit"></div>
+    </form>
+</main>
