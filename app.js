@@ -21,6 +21,7 @@ app.get('/profile', (req, res) => res.render('profile', { title: 'myJobs - Profi
 app.get('/saved', (req, res) => res.render('saved', { title: 'myJobs - Saved jobs' }));
 app.get('/applied', (req, res) => res.render('applied', { title: 'myJobs - Applied jobs' }));
 app.get('/profile-employer', (req, res) => res.render('profile_employer', { title: 'myJobs - Employer profile' }));
+app.get('/posted', (req, res) => res.render('posted', { title: 'myJobs - Posted jobs' }));
 
 // change later to env variable
 app.listen(5000);
