@@ -41,13 +41,13 @@ input[type=text], input[type=password], select, textarea {
 }
 
 /* Navigation bar */
-#nav {
+nav {
     display: grid;
     grid-template-columns: 6fr 1fr 1fr;
     align-items: baseline;
     margin-bottom: 1em;
 }
-#nav div {
+nav div {
     justify-self: end;
 }
 
@@ -91,11 +91,10 @@ input[type=text], input[type=password], select, textarea {
 
 /* Job screen */
 #job {
-    margin-top: 1em;
     display: grid;
     grid-template-columns: 1fr;
 }
-#job article {
+#job section {
     margin-bottom: 1em;
 }
 #job input[type=file] {
@@ -145,6 +144,7 @@ input[type=text], input[type=password], select, textarea {
     grid-gap: 0.8em;
 }
 
+/* Create/update form */
 #job-form {
     display: grid;
     grid-template-columns: 1fr;
