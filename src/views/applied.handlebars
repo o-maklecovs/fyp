@@ -1,8 +1,8 @@
 <main id="profile">
     <aside>
-        <div><a href="/profile">Profile</a></div>
-        <div><a href="/saved">Saved jobs</a></div>
-        <div><a href="/applied">Applied jobs</a></div>
+        {{#each links}}
+            <div><a href="{{this.link}}">{{this.text}}</a></div>
+        {{/each}}
     </aside>
     <section class="profile-jobs-list">
         <h2>Applied jobs</h2>

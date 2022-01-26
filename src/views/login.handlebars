@@ -1,11 +1,11 @@
 <main id="login">
-    <h2>Login</h2>
-    <form action="/login" method="post">
+    <h2>{{heading}}</h2>
+    <form action="{{action}}" method="post">
         <label for="email">Email</label>
         <input type="text" name="email" size="26">
         <label for="password">Password</label>
         <input type="password" name="password" size="26">
         <input type="submit" value="Login">
     </form>
-    <a href="/register">Register</a>
+    <a href="{{register_link}}">Register</a>
 </main>

@@ -1,12 +1,12 @@
 <main id="profile">
     <aside>
-        <div><a href="/profile">Profile</a></div>
-        <div><a href="/saved">Saved jobs</a></div>
-        <div><a href="/applied">Applied jobs</a></div>
+        {{#each links}}
+            <div><a href="{{this.link}}">{{this.text}}</a></div>
+        {{/each}}
     </aside>
     <section>
         <h2>Profile</h2>
-        <p>Name: John Doe</p>
+        <p>{{name_or_company}}: John Doe</p>
         <p>Email: john@gmail.com</p>
         <h2>Change password</h2>
         <form action="/profile" method="post">

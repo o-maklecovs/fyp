@@ -1,10 +1,15 @@
 <main id="register">
-    <h2>Register</h2>
-    <form action="/register" method="post">
+    <h2>{{heading}}</h2>
+    <form action="{{action}}" method="post">
+        {{#if is_employer}}
+        <label for="companyname">Company name</label>
+        <input type="text" name="companyname" size="26">
+        {{else}}
         <label for="firstname">First name</label>
         <input type="text" name="firstname" size="26">
         <label for="lastname">Last name</label>
         <input type="text" name="lastname" size="26">
+        {{/if}}
         <label for="email">Email</label>
         <input type="text" name="email" size="26">
         <label for="password">Password</label>

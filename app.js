@@ -24,6 +24,7 @@ app.use('/profile-employer', require('./src/routes/profile_employer'));
 app.use('/posted', require('./src/routes/posted'));
 app.use('/applicants', require('./src/routes/applicants'));
 app.use('/create', require('./src/routes/create'));
+app.use('/edit', require('./src/routes/edit'));
 
 // change later to env variable
 app.listen(5000);
