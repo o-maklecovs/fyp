@@ -1,14 +1,14 @@
-/* Accent colour: #ff8000 */
+/* Accent colour: #f70 */
 
 body {
     font: 1em sans-serif;
-    width: 70%;
-    margin: auto;
+    width: 70vw;
+    margin: 0 auto;
 }
 
 /* Links */
 a {
-    color: #ff8000;
+    color: #f70;
     text-decoration: none;
 }
 a:hover {
@@ -25,14 +25,14 @@ input, select, button {
 }
 input[type=submit], button {
     border: none;
-    background: #ff8000;
+    background: #f70;
     color: #fff;
     padding: 0.3em 1em;
     border-radius: 0.2em;
 }
 input[type=submit]:hover, button:hover {
     cursor: pointer;
-    background: #e47200;
+    background: #e60;
 }
 input[type=text], input[type=password], select, textarea {
     border: 1px solid #333;
