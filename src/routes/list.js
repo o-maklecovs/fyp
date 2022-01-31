@@ -4,13 +4,11 @@ const dbConn = require('../middlewares/db_conn');
 
 router.get('/', dbConn, async (req, res) => {
     const db = res.locals.db;
-    try {
-        const result = await db.test();
-        console.log(result);
-        db.disconnect();
-    } catch (e) {
+    const result = await db.test().catch(e => {
         console.error(e);
-    }
+    });
+    console.log(result);
+    db.disconnect();
     res.render('list', { title: 'myJobs - Jobs in your area' });
 });
 
