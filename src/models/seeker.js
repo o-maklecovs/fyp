@@ -16,3 +16,5 @@ class Seeker {
 
     getFavourites() { }
 }
+
+module.exports = Seeker;

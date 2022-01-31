@@ -8,3 +8,5 @@ class Job {
     
     delete() { }
 }
+
+module.exports = Job;

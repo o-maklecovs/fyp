@@ -12,3 +12,5 @@ class Employer {
 
     getApplicants() { }
 }
+
+module.exports = Employer;
