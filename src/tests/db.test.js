@@ -1,6 +1,4 @@
 const Db = require('../models/db');
-const Job = require('../models/job');
-const Employer = require('../models/employer');
 
 const db = new Db();
 
@@ -18,24 +16,26 @@ afterAll(() => {
 
 test('create employer', async () => {
     const details = {
-        company_name: 'Google',
+        id: 0,
+        companyName: 'Google',
         email: 'google@gmail.com',
         password: 'secret'
     };
-    const employer = new Employer(details, db);
-    const data = await db.createEmployer(employer);
-    expect(data.insertId).toBeTruthy();
+    const cols = ['id', 'company_name', 'email', 'password'];
+    const result = await db.insert(details, 'employers', cols);
+    expect(result.insertId).toBeTruthy();
 });
 
 test('create job', async () => {
     const details = {
+        id: 0,
         employerId: '1',
         title: 'Software developer',
         description: 'You will be developing software for one of the largest tech companies in the world.',
         city: 'London',
         date: new Date().toISOString()
     };
-    const job = new Job(details, db);
-    const data = await db.createJob(job);
-    expect(data.insertId).toBeTruthy();
+    const cols = ['id', 'employer_id', 'title', 'description', 'city', 'date'];
+    const result = await db.insert(details, 'jobs', cols);
+    expect(result.insertId).toBeTruthy();
 });

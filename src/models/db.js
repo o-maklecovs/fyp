@@ -16,34 +16,20 @@ class Db {
         });
     }
 
-    createEmployer(employer) {
-        const details = [];
+    insert(values, table, columns) {
+        const cols = columns.join(', ');
+        let vals = [];
 
-        for (const key in employer.details) {
-            details.push(employer.details[key]);
+        for (const key in values) {
+            vals.push(this.conn.escape(values[key]));
         }
 
-        const query = 'INSERT INTO employers (company_name, email, password) VALUES (?, ?, ?);';
+        vals = vals.join(', ');
+
+        const query = `INSERT INTO ${table} (${cols}) VALUES (${vals});`;
 
         return new Promise((res, rej) => {
-            this.conn.query(query, details, (err, result) => {
-                if (err) rej(err);
-                res(result);
-            });
-        });
-    }
-
-    createJob(job) {
-        const details = [];
-
-        for (const key in job.details) {
-            details.push(job.details[key]);
-        }
-
-        const query = 'INSERT INTO jobs (employer_id, title, description, city, date) VALUES (?, ?, ?, ?, ?);';
-
-        return new Promise((res, rej) => {
-            this.conn.query(query, details, (err, result) => {
+            this.conn.query(query, (err, result) => {
                 if (err) rej(err);
                 res(result);
             });
