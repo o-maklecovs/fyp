@@ -53,25 +53,22 @@ class Db {
         });
     }
 
-    // insert(values, table, columns) {
-    //     const cols = columns.join(', ');
-    //     let vals = [];
+    createSeeker(details) {
+        let vals = [];
+        for (const key in details) {
+            vals.push(this.#conn.escape(details[key]));
+        }
+        vals = vals.join(', ');
 
-    //     for (const key in values) {
-    //         vals.push(this.conn.escape(values[key]));
-    //     }
+        const query = `INSERT INTO seekers (id, first_name, last_name, email, password) VALUES (${vals})`;
 
-    //     vals = vals.join(', ');
-
-    //     const query = `INSERT INTO ${table} (${cols}) VALUES (${vals});`;
-
-    //     return new Promise((res, rej) => {
-    //         this.conn.query(query, (err, result) => {
-    //             if (err) rej(err);
-    //             res(result);
-    //         });
-    //     });
-    // }
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
 
     disconnect() {
         this.#conn.end();

@@ -37,3 +37,15 @@ test('create job', async () => {
     const result = await db.createJob(details);
     expect(result.insertId).toBeTruthy();
 });
+
+test('create seeker', async () => {
+    const details = {
+        id: 0,
+        first_name: 'john',
+        last_name: 'doe',
+        email: 'john@gmail.com',
+        password: 'secret'
+    };
+    const result = await db.createSeeker(details);
+    expect(result.insertId).toBeTruthy();
+});
