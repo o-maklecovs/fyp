@@ -49,3 +49,10 @@ test('create seeker', async () => {
     const result = await db.createSeeker(details);
     expect(result.insertId).toBeTruthy();
 });
+
+test('check seeker\'s password', async () => {
+    const email = 'john@gmail.com';
+    const password = 'secret';
+    const result = await db.checkPasswordSeeker(email, password);
+    expect(result).toBeTruthy();
+});

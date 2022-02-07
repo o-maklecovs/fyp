@@ -70,6 +70,21 @@ class Db {
         });
     }
 
+    checkPasswordSeeker(email, password) {
+        const escapedEmail = this.#conn.escape(email);
+        const escapedPassword = this.#conn.escape(password);
+
+        const query = `SELECT * FROM seekers WHERE email = ${escapedEmail} AND password = ${escapedPassword}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                if (Object.keys(result).length === 0) res(false);
+                else res(true);
+            })
+        });
+    }
+
     disconnect() {
         this.#conn.end();
     }

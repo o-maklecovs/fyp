@@ -4,17 +4,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 class Authenticate {
-    #db;
-
-    constructor(db) {
-        this.#db = db;
-    }
-
-    login(details) {
-        // verify password
-
-        const token = jwt.sign({ email: details.email }, process.env.TOKEN_SECRET);
-
+    login(email) {
+        const token = jwt.sign({ email: email }, process.env.TOKEN_SECRET);
         return token;
     }
 
@@ -27,3 +18,5 @@ class Authenticate {
         }
     }
 }
+
+module.exports = Authenticate;
