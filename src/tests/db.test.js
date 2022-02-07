@@ -21,8 +21,7 @@ test('create employer', async () => {
         email: 'google@gmail.com',
         password: 'secret'
     };
-    const cols = ['id', 'company_name', 'email', 'password'];
-    const result = await db.insert(details, 'employers', cols);
+    const result = await db.createEmployer(details);
     expect(result.insertId).toBeTruthy();
 });
 
@@ -35,7 +34,6 @@ test('create job', async () => {
         city: 'London',
         date: new Date().toISOString()
     };
-    const cols = ['id', 'employer_id', 'title', 'description', 'city', 'date'];
-    const result = await db.insert(details, 'jobs', cols);
+    const result = await db.createJob(details);
     expect(result.insertId).toBeTruthy();
 });

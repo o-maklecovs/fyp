@@ -2,42 +2,79 @@ const mysql = require('mysql');
 const dbSettings = require('../configs/db_config');
 
 class Db {
+    #settings;
+    #conn;
+
     constructor() {
-        this.settings = dbSettings;
-        this.conn = mysql.createConnection(this.settings);
+        this.#settings = dbSettings;
+        this.#conn = mysql.createConnection(this.#settings);
     }
 
     connect() {
         return new Promise((res, rej) => {
-            this.conn.connect(err => {
+            this.#conn.connect(err => {
                 if (err) rej(err);
                 res();
             });
         });
     }
 
-    insert(values, table, columns) {
-        const cols = columns.join(', ');
+    createEmployer(details) {
         let vals = [];
-
-        for (const key in values) {
-            vals.push(this.conn.escape(values[key]));
+        for (const key in details) {
+            vals.push(this.#conn.escape(details[key]));
         }
-
         vals = vals.join(', ');
 
-        const query = `INSERT INTO ${table} (${cols}) VALUES (${vals});`;
+        const query = `INSERT INTO employers (id, company_name, email, password) VALUES (${vals})`;
 
         return new Promise((res, rej) => {
-            this.conn.query(query, (err, result) => {
+            this.#conn.query(query, (err, result) => {
                 if (err) rej(err);
                 res(result);
             });
         });
     }
 
+    createJob(details) {
+        let vals = [];
+        for (const key in details) {
+            vals.push(this.#conn.escape(details[key]));
+        }
+        vals = vals.join(', ');
+
+        const query = `INSERT INTO jobs (id, employer_id, title, description, city, date) VALUES (${vals})`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    // insert(values, table, columns) {
+    //     const cols = columns.join(', ');
+    //     let vals = [];
+
+    //     for (const key in values) {
+    //         vals.push(this.conn.escape(values[key]));
+    //     }
+
+    //     vals = vals.join(', ');
+
+    //     const query = `INSERT INTO ${table} (${cols}) VALUES (${vals});`;
+
+    //     return new Promise((res, rej) => {
+    //         this.conn.query(query, (err, result) => {
+    //             if (err) rej(err);
+    //             res(result);
+    //         });
+    //     });
+    // }
+
     disconnect() {
-        this.conn.end();
+        this.#conn.end();
     }
 }
 
