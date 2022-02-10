@@ -2,6 +2,8 @@ const Db = require('../models/db');
 
 const db = new Db();
 
+const date = new Date().toISOString();
+
 async function initDb() {
     await db.connect();
 }
@@ -25,6 +27,13 @@ test('create employer', async () => {
     expect(result.insertId).toBeTruthy();
 });
 
+test('update employer\'s password', async () => {
+    const id = '1';
+    const password = 'newsecret';
+    const result = await db.updateEmployerPassword(id, password);
+    expect(result.changedRows).toBeTruthy();
+});
+
 test('create job', async () => {
     const details = {
         id: '0',
@@ -36,6 +45,12 @@ test('create job', async () => {
     };
     const result = await db.createJob(details);
     expect(result.insertId).toBeTruthy();
+});
+
+test('get posted jobs', async () => {
+    const employerId = '1';
+    const result = await db.getPostedJobs(employerId);
+    expect(result[0]).toBeTruthy();
 });
 
 test('update job', async () => {

@@ -36,6 +36,28 @@ class Db {
         });
     }
 
+    updateEmployerPassword(id, password) {
+        const query = `UPDATE employers SET password = ${this.#conn.escape(password)} WHERE id = ${this.#conn.escape(id)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getPostedJobs(employerId) {
+        const query = `SELECT * FROM jobs WHERE employer_id = ${this.#conn.escape(employerId)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     createJob(details) {
         let vals = [];
         for (const key in details) {
