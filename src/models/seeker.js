@@ -6,6 +6,15 @@ class Seeker {
 
     create() { }
 
+    static async verifyPassword(email, pwd, db) {
+
+        // hash password
+
+        const verifyPwd = await db.checkPasswordSeeker(email, pwd);
+        
+        return verifyPwd;
+    }
+
     updatePassword(newPassword) { }
 
     apply(job) { }

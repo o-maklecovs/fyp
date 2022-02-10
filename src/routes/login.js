@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Authenticate = require('../models/auth');
+const Seeker = require('../models/seeker');
 
 router.get('/', (req, res) => {
     if (res.locals.isLoggedIn) {
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/', async (req, res) => {
+router.post('/', (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile');
     } else {
@@ -25,7 +26,7 @@ router.post('/', async (req, res) => {
         const email = req.body.email;
         const pwd = req.body.password;
 
-        const verifyPass = await db.checkPasswordSeeker(email, pwd);
+        const verifyPass = Seeker.verifyPassword(email, pwd, db);
 
         if (verifyPass) {
             const auth = new Authenticate();
