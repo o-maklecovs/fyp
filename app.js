@@ -1,6 +1,9 @@
 const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
+const cookieParser = require('cookie-parser');
+const verifyLogin = require('./src/middlewares/verifyLogin');
+const dbConn = require('./src/middlewares/db_conn');
 
 const app = express();
 
@@ -9,6 +12,11 @@ app.set('view engine', 'handlebars');
 app.set('views', './src/views');
 
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(cookieParser());
+
+app.use(dbConn);
+app.use(verifyLogin);
 
 app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home' }));
 app.use('/list', require('./src/routes/list'));
