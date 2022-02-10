@@ -7,6 +7,8 @@ const dbConn = require('./src/middlewares/db_conn');
 
 const app = express();
 
+app.use(express.urlencoded({ extended: true }))
+
 app.engine('handlebars', engine({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.set('views', './src/views');
@@ -22,6 +24,7 @@ app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home' }));
 app.use('/list', require('./src/routes/list'));
 app.use('/job', require('./src/routes/job'));
 app.use('/login', require('./src/routes/login'));
+app.use('/logout', require('./src/routes/logout'));
 app.use('/employer', require('./src/routes/employer'));
 app.use('/register', require('./src/routes/register'));
 app.use('/register-employer', require('./src/routes/register_employer'));

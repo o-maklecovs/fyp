@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile');
     } else {
@@ -25,7 +25,9 @@ router.post('/', (req, res) => {
         const email = req.body.email;
         const pwd = req.body.password;
 
-        if (db.checkPasswordSeeker(email, pwd)) {
+        const verifyPass = await db.checkPasswordSeeker(email, pwd);
+
+        if (verifyPass) {
             const auth = new Authenticate();
             const token = auth.login(email);
             res.cookie('token', token, { httpOnly: true });
