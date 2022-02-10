@@ -53,6 +53,33 @@ class Db {
         });
     }
 
+    updateJob(details) {
+        let vals = {};
+        for (const key in details) {
+            vals[key] = this.#conn.escape(details[key]);
+        }
+
+        const query = `UPDATE jobs SET title = ${vals.title}, description = ${vals.description}, city = ${vals.city}, date = ${vals.date} WHERE id = ${vals.id}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    deleteJob(id) {
+        const query = `DELETE FROM jobs WHERE id = ${this.#conn.escape(id)} LIMIT 1`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     createSeeker(details) {
         let vals = [];
         for (const key in details) {

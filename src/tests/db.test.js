@@ -27,7 +27,7 @@ test('create employer', async () => {
 
 test('create job', async () => {
     const details = {
-        id: 0,
+        id: '0',
         employerId: '1',
         title: 'Software developer',
         description: 'You will be developing software for one of the largest tech companies in the world.',
@@ -36,6 +36,25 @@ test('create job', async () => {
     };
     const result = await db.createJob(details);
     expect(result.insertId).toBeTruthy();
+});
+
+test('update job', async () => {
+    const details = {
+        id: '1',
+        employerId: '1',
+        title: 'Web developer',
+        description: 'You will be developing web applications for one of the largest tech companies in the world.',
+        city: 'Birmingham',
+        date: new Date().toISOString()
+    };
+    const result = await db.updateJob(details);
+    expect(result).toBeTruthy();
+});
+
+test('delete job', async () => {
+    const id = '1';
+    const result = await db.deleteJob(id);
+    expect(result.affectedRows).toBeTruthy();
 });
 
 test('create seeker', async () => {
