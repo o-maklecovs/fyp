@@ -72,6 +72,11 @@ test('delete job', async () => {
     expect(result.affectedRows).toBeTruthy();
 });
 
+test('get all jobs', async () => {
+    const result = await db.getAllJobs();
+    expect(result[0]).toBeTruthy();
+});
+
 test('create seeker', async () => {
     const details = {
         id: 0,
@@ -82,6 +87,32 @@ test('create seeker', async () => {
     };
     const result = await db.createSeeker(details);
     expect(result.insertId).toBeTruthy();
+});
+
+test('update seeker\'s password', async () => {
+    const id = '1';
+    const newPassword = 'newsecret';
+    const result = await db.updatePasswordSeeker(id, newPassword);
+    expect(result.affectedRows).toBeTruthy();
+});
+
+test('apply for job', async () => {
+    const jobId = '1';
+    const seekerId = '1';
+    const result = await db.apply(jobId, seekerId, date);
+    expect(result.insertId).toBeTruthy();
+});
+
+test('get seeker by email', async () => {
+    const email = 'john@gmail.com';
+    const result = await db.getSeekerByEmail(email);
+    expect(result).toBeTruthy();
+});
+
+test.only('get seeker\'s jobs', async () => {
+    const id = '1';
+    const result = await db.getAppliedJobs(id);
+    expect(result[0]).toBeTruthy();
 });
 
 test('check seeker\'s password', async () => {

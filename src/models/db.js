@@ -102,6 +102,17 @@ class Db {
         });
     }
 
+    getAllJobs() {
+        const query = 'SELECT * FROM jobs';
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     createSeeker(details) {
         let vals = [];
         for (const key in details) {
@@ -116,6 +127,53 @@ class Db {
                 if (err) rej(err);
                 res(result);
             });
+        });
+    }
+
+    updatePasswordSeeker(id, newPassword) {
+        const query = `UPDATE seekers SET password = ${this.#conn.escape(newPassword)} WHERE id = ${this.#conn.escape(id)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getSeekerByEmail(email) {
+        const query = `SELECT * FROM seekers WHERE email = ${this.#conn.escape(email)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    apply(jobId, seekerId, date) {
+        const jobIdEsc = this.#conn.escape(jobId);
+        const seekerIdEsc = this.#conn.escape(seekerId);
+        const dateEsc = this.#conn.escape(date);
+        const query = `INSERT INTO applications (seeker_id, job_id, date, cv) VALUES (${seekerIdEsc}, ${jobIdEsc}, ${dateEsc}, 'cv.pdf')`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getAppliedJobs(id) {
+        const query = `SELECT jobs.* FROM jobs INNER JOIN applications ON jobs.id = applications.job_id WHERE applications.seeker_id = ${this.#conn.escape(id)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            })
         });
     }
 
