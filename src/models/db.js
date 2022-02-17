@@ -177,6 +177,28 @@ class Db {
         });
     }
 
+    addToFavourites(jId, sId) {
+        const query = `INSERT INTO saved_jobs (job_id, seeker_id) VALUES (${this.#conn.escape(jId)}, ${this.#conn.escape(sId)})`;
+        
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getFavouritesById(sId) {
+        const query = `SELECT * FROM saved_jobs WHERE seeker_id = ${this.#conn.escape(sId)}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     checkPasswordSeeker(email, password) {
         const escapedEmail = this.#conn.escape(email);
         const escapedPassword = this.#conn.escape(password);

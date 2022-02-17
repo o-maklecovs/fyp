@@ -109,9 +109,22 @@ test('get seeker by email', async () => {
     expect(result).toBeTruthy();
 });
 
-test.only('get seeker\'s jobs', async () => {
+test('get seeker\'s jobs', async () => {
     const id = '1';
     const result = await db.getAppliedJobs(id);
+    expect(result[0]).toBeTruthy();
+});
+
+test('add to favourites', async () => {
+    const jId = '1';
+    const sId = '1';
+    const result = await db.addToFavourites(jId, sId);
+    expect(result.insertId).toBeTruthy();
+});
+
+test.only('get favourites by seeker id', async () => {
+    const sId = '1';
+    const result = await db.getFavouritesById(sId);
     expect(result[0]).toBeTruthy();
 });
 
