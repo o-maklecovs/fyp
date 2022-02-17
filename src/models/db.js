@@ -58,6 +58,17 @@ class Db {
         });
     }
 
+    getApplicantsById(eId) {
+        const query = `SELECT seekers.* FROM seekers, applications, jobs WHERE jobs.employer_id = ${this.#conn.escape(eId)} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     createJob(details) {
         let vals = [];
         for (const key in details) {
@@ -167,7 +178,7 @@ class Db {
     }
 
     getAppliedJobs(id) {
-        const query = `SELECT jobs.* FROM jobs INNER JOIN applications ON jobs.id = applications.job_id WHERE applications.seeker_id = ${this.#conn.escape(id)}`;
+        const query = `SELECT jobs.* FROM jobs, applications WHERE applications.seeker_id = ${this.#conn.escape(id)} AND jobs.id = applications.id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

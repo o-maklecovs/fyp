@@ -27,6 +27,12 @@ test('create employer', async () => {
     expect(result.insertId).toBeTruthy();
 });
 
+test('get posted jobs by employer id', async () => {
+    const eId = '1';
+    const result = await db.getApplicantsById(eId);
+    expect(result[0]).toBeTruthy();
+});
+
 test('update employer\'s password', async () => {
     const id = '1';
     const password = 'newsecret';
@@ -109,9 +115,10 @@ test('get seeker by email', async () => {
     expect(result).toBeTruthy();
 });
 
-test('get seeker\'s jobs', async () => {
+test.only('get seeker\'s jobs', async () => {
     const id = '1';
     const result = await db.getAppliedJobs(id);
+    console.log(result);
     expect(result[0]).toBeTruthy();
 });
 
@@ -122,7 +129,7 @@ test('add to favourites', async () => {
     expect(result.insertId).toBeTruthy();
 });
 
-test.only('get favourites by seeker id', async () => {
+test('get favourites by seeker id', async () => {
     const sId = '1';
     const result = await db.getFavouritesById(sId);
     expect(result[0]).toBeTruthy();
