@@ -1,10 +1,14 @@
-<main id="profile">
+<main class="profile">
+    <section id="aside-toggler">
+        <div>Profile</div>
+        <div class="arrow"></div>
+    </section>
     <aside>
         {{#each links}}
-            <div><a href="{{this.link}}">{{this.text}}</a></div>
+            <a href="{{this.link}}">{{this.text}}</a>
         {{/each}}
     </aside>
-    <section>
+    <section class="profile-content">
         <h2>Profile</h2>
         <p>{{name_or_company}}: John Doe</p>
         <p>Email: john@gmail.com</p>
@@ -18,3 +22,4 @@
         </form>
     </section>
 </main>
+<script src="javascript/aside.js"></script>

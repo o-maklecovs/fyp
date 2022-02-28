@@ -1,7 +1,11 @@
-<main id="profile">
+<main class="profile">
+    <section id="aside-toggler">
+        <div>Profile</div>
+        <div class="arrow"></div>
+    </section>
     <aside>
         {{#each links}}
-            <div><a href="{{this.link}}">{{this.text}}</a></div>
+            <a href="{{this.link}}">{{this.text}}</a>
         {{/each}}
     </aside>
     <section class="profile-jobs-list">
@@ -24,3 +28,4 @@
         </div>
     </section>
 </main>
+<script src="javascript/aside.js"></script>
