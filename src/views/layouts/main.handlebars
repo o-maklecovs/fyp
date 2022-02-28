@@ -2,15 +2,23 @@
 <html lang="en">
     <head>
         <title>{{title}}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="/css/style.css">
     </head>
     <body>
+        <header>
+            <h1><a href="/" class="nav-title">myJobs</a></h1>
+            <div id="menu-toggler">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </header>
         <nav>
-            <h1><a href="/" id="nav-title">myJobs</a></h1>
-            <div><a href="/login">Login</a></div>
-            <div><a href="/employer">Employer</a></div>
+            <a href="/login">Login</a>
+            <a href="/employer">Employer</a>
         </nav>
         {{{body}}}
-        <script src="/javascript/script.js"></script>
+        <script src="/javascript/nav.js"></script>
     </body>
 </html>

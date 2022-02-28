@@ -2,24 +2,17 @@
 
 body {
     font: 1em sans-serif;
-    width: 70vw;
-    margin: 0 auto;
+    margin: 0;
 }
 
-/* Links */
 a {
     color: #f70;
-    text-decoration: none;
 }
-a:hover {
-    text-decoration: underline;
-}
-#nav-title {
+.nav-title {
     color: #000;
     text-decoration: none;
 }
 
-/* Forms */
 input, select, button {
     font: 1em sans-serif;
 }
@@ -30,32 +23,62 @@ input[type=submit], button {
     padding: 0.3em 1em;
     border-radius: 0.2em;
 }
-input[type=submit]:hover, button:hover {
-    cursor: pointer;
-    background: #e60;
-}
 input[type=text], input[type=password], select, textarea {
     border: 1px solid #333;
     border-radius: 0.2em;
     padding: 0.2em;
 }
 
-/* Navigation bar */
-nav {
-    display: grid;
-    grid-template-columns: 6fr 1fr 1fr;
+header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     align-items: baseline;
-    margin-bottom: 1em;
+    margin: 0 0.5em;
 }
-nav div {
-    justify-self: end;
+#menu-toggler div {
+    background-color: #fff;
+    width: 20px;
+    height: 4px;
+    border-radius: 0.2em;
+    margin-bottom: 2px;
+}
+#menu-toggler {
+    background-color: #f70;
+    border-radius: 0.2em;
+    padding: 0.5em;
 }
 
-/* Landing page */
-#index {
+nav {
+    display: none;
+    margin: 0 0.5em;
+    right: 0;
+}
+nav.open {
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: #eee;
+    border-radius: 0.2em;
+    box-shadow: 0 0 6px #aaa;
+}
+nav a {
+    text-decoration: none;
+    padding: 1em 4em 1em 0.5em;
+}
+
+/* Home page */
+.index {
+    margin: 0.5em 0.5em;
+}
+.search {
     display: grid;
-    grid-template-columns: 1fr;
-    justify-items: center;
+    grid-template-columns: 4fr 1fr;
+    grid-gap: 0.5em;
+}
+.search input[type="submit"] {
+    grid-column: 1 / 3;
+    justify-self: left;
 }
 
 /* Login form */
@@ -155,4 +178,30 @@ nav div {
 }
 #job-form form *:not(label) {
     margin-bottom: 0.8em;
+}
+
+@media screen and (min-width: 425px) {
+    a {
+        color: #f70;
+        text-decoration: none;
+    }
+    a:hover {
+        text-decoration: underline;
+    }
+    nav {
+        display: grid;
+        grid-template-columns: 6fr 1fr 1fr;
+        align-items: baseline;
+        /* margin-bottom: 1em; */
+    }
+    nav div {
+        justify-self: end;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    input[type=submit]:hover, button:hover {
+        cursor: pointer;
+        background: #e60;
+    }
 }
