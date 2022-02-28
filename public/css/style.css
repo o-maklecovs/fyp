@@ -16,6 +16,9 @@ a {
     color: #000;
     text-decoration: none;
 }
+.nav-title:hover {
+    text-decoration: none;
+}
 
 input, select, button {
     font: 1em sans-serif;
@@ -59,10 +62,13 @@ nav {
     right: 0;
     z-index: 1;
 }
-nav.open {
-    position: absolute;
+nav div {
     display: flex;
     flex-direction: column;
+}
+nav.open {
+    position: absolute;
+    display: block;
     background-color: #eee;
     border-radius: 0.2em;
     box-shadow: 0 0 6px #aaa;
@@ -75,10 +81,11 @@ nav a:not(nav a:last-child) {
     border-bottom: 1px solid #ddd;
 }
 
-/* Home page */
-.index {
-    margin: 0.5em 0.5em;
+main {
+    margin: 0 0.5em;
 }
+
+/* Home page */
 .index form {
     display: grid;
     grid-template-columns: 4fr 1fr;
@@ -93,9 +100,6 @@ nav a:not(nav a:last-child) {
 }
 
 /* Login screen */
-.login {
-    margin: 0 0.5em;
-}
 .login form {
     display: grid;
     grid-template-columns: 1fr;
@@ -112,9 +116,6 @@ nav a:not(nav a:last-child) {
 }
 
 /* Jobs list */
-.list {
-    margin: 0 0.5em;
-}
 .jobs-list {
     margin-top: 1em;
 }
@@ -161,9 +162,6 @@ nav a:not(nav a:last-child) {
 }
 
 /* Job screen */
-.job {
-    margin: 0 0.5em;
-}
 .job-details {
     display: flex;
     flex-direction: column;
@@ -173,9 +171,6 @@ nav a:not(nav a:last-child) {
 }
 
 /* Registration screen */
-.register {
-    margin: 0 0.5em;
-}
 .register form {
     display: grid;
     grid-template-columns: 1fr;
@@ -224,9 +219,6 @@ nav a:not(nav a:last-child) {
     height: 10px;
     transform: rotate(135deg);
 }
-.profile {
-    margin: 0 0.5em;
-}
 .profile form {
     display: grid;
     grid-template-columns: 1fr;
@@ -240,9 +232,6 @@ nav a:not(nav a:last-child) {
 }
 
 /* Create/update form */
-.job-form {
-    margin: 0 0.5em;
-}
 .job-form form {
     display: grid;
     grid-template-columns: 1fr;
@@ -252,6 +241,11 @@ nav a:not(nav a:last-child) {
 }
 
 @media screen and (min-width: 450px) {
+    input[type=submit]:hover, button:hover {
+        cursor: pointer;
+        background: #e60;
+    }
+
     a {
         color: #f70;
         text-decoration: none;
@@ -259,17 +253,41 @@ nav a:not(nav a:last-child) {
     a:hover {
         text-decoration: underline;
     }
+
+    main, header, nav div {
+        margin: 0 1em;
+    }
+    footer {
+        margin: 1em;
+    }
+
+    #menu-toggler {
+        display: none;
+    }
     nav {
-        display: grid;
-        grid-template-columns: 6fr 1fr 1fr;
-        align-items: baseline;
+        display: block;
+        background-color: #f70;
+        margin: 0;
     }
     nav div {
-        justify-self: end;
+        display: flex;
+        flex-direction: row;
+    }
+    nav a {
+        border: none;
+        color: #fff;
+        padding: 1em 1em;
+    }
+    nav a:not(nav a:last-child) {
+        border: none;
+    }
+    nav a:hover {
+        background-color: #e60;
+        text-decoration: none;
     }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 780px) {
     input[type=submit]:hover, button:hover {
         cursor: pointer;
         background: #e60;
