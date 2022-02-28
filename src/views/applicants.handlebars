@@ -1,12 +1,16 @@
-<main id="profile">
+<main class="profile">
+    <section id="aside-toggler">
+        <div>Profile</div>
+        <div class="arrow"></div>
+    </section>
     <aside>
         {{#each links}}
-            <div><a href="{{this.link}}">{{this.text}}</a></div>
+            <a href="{{this.link}}">{{this.text}}</a>
         {{/each}}
     </aside>
-    <section class="profile-jobs-list">
+    <section>
         <h2>Applicants</h2>
-        <div class="item">
+        <div class="job-item">
             <div>
                 <span>John Doe</span><br>
                 <span class="company">Software Developer</span>
@@ -14,7 +18,7 @@
             <a href="/download-cv">CV</a>
             <span>03/01/2022</span>
         </div>
-        <div class="item">
+        <div class="job-item">
             <div>
                 <span>Rick Grimes</span><br>
                 <span class="company">Warehouse Worker</span>
@@ -24,3 +28,4 @@
         </div>
     </section>
 </main>
+<script src="javascript/aside.js"></script>

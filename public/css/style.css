@@ -71,6 +71,9 @@ nav a {
     text-decoration: none;
     padding: 1em 4em 1em 0.5em;
 }
+nav a:not(nav a:last-child) {
+    border-bottom: 1px solid #ddd;
+}
 
 /* Home page */
 .index {
@@ -234,13 +237,6 @@ nav a {
 }
 .profile form *:not(label) {
     margin-bottom: 0.8em;
-}
-
-/* Saved jobs page */
-.profile-jobs-list {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 0.8em;
 }
 
 /* Create/update form */
