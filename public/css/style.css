@@ -76,8 +76,11 @@ nav a {
     grid-template-columns: 4fr 1fr;
     grid-gap: 0.5em;
 }
+.index form input[type="text"] {
+    grid-column: 1 / 4;
+}
 .index form input[type="submit"] {
-    grid-column: 1 / 3;
+    grid-column: 1 / 5;
     justify-self: left;
 }
 
@@ -102,20 +105,52 @@ nav a {
 }
 
 /* Jobs list */
-#list {
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-gap: 0.8em;
+.list {
+    margin: 0 0.5em;
 }
-.item {
+.jobs-list {
+    margin-top: 1em;
+}
+.job-item {
     display: grid;
     grid-template-columns: 4fr 1fr 1fr;
     grid-gap: 0.4em;
     align-items: center;
+    padding: 0.5em 0;
+}
+.job-item:not(.job-item:last-child) {
+    border-bottom: 1px solid #ddd;
+}
+.job-item:first-child {
+    padding: 0 0 0.5em;
+}
+.job-item:last-child {
+    padding: 0.5em 0 0;
+}
+.job-title {
+    grid-column: 1 / 4;
+}
+.job-city {
+    grid-column: 4 / 5;
+}
+.job-date {
+    grid-column: 5 / 6;
 }
 .company {
     color: #777;
     font-size: 0.8em;
+}
+.list form {
+    display: grid;
+    grid-template-columns: 4fr 1fr;
+    grid-gap: 0.5em;
+}
+.list form input[type="text"] {
+    grid-column: 1 / 4;
+}
+.list form input[type="submit"] {
+    grid-column: 1 / 5;
+    justify-self: left;
 }
 
 /* Job screen */
