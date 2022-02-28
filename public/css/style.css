@@ -240,15 +240,14 @@ nav a:not(nav a:last-child) {
 }
 
 /* Create/update form */
-#job-form {
+.job-form {
+    margin: 0 0.5em;
+}
+.job-form form {
     display: grid;
     grid-template-columns: 1fr;
 }
-#job-form form {
-    display: grid;
-    grid-template-columns: 1fr;
-}
-#job-form form *:not(label) {
+.job-form form *:not(label) {
     margin-bottom: 0.8em;
 }
 
@@ -264,7 +263,6 @@ nav a:not(nav a:last-child) {
         display: grid;
         grid-template-columns: 6fr 1fr 1fr;
         align-items: baseline;
-        /* margin-bottom: 1em; */
     }
     nav div {
         justify-self: end;
