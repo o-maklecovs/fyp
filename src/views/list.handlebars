@@ -1,13 +1,14 @@
 <main class="list">
     <section>
         <form action="/jobs" method="get" class="search-form">
-            <input type="text" name="search-query">
-            <select name="city">
+            <input type="text" name="search-query" class="search-query" placeholder="Job title">
+            <input type="text" name="search-city" class="search-city" placeholder="City">
+            {{!-- <select name="city">
                 <option value="London">London</option>
                 <option value="Birmingham">Birmingham</option>
                 <option value="Manchester">Manchester</option>
                 <option value="Cambridge">Cambridge</option>
-            </select>
+            </select> --}}
             <input type="submit" value="Search">
         </form>
     </section>
