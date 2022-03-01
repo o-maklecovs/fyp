@@ -307,4 +307,33 @@ main {
         width: 30vw;
         margin: auto;
     }
+
+    #aside-toggler {
+        display: none;
+    }
+    .profile aside {
+        display: flex;
+        flex-direction: column;
+        border: none;
+    }
+    .profile aside a {
+        padding: 0.5em 1em;
+        margin-bottom: 0.5em;
+    }
+    .profile aside a:hover {
+        background-color: #f70;
+        color: #fff;
+        border-radius: 0.2em;
+    }
+    .profile aside a:not(.profile aside a:last-child) {
+        border-bottom: none;
+    }
+    .profile {
+        display: grid;
+        grid-template-columns: 1fr 3fr;
+        grid-gap: 1em;
+    }
+    .profile-content form {
+        width: 10vw;
+    }
 }
