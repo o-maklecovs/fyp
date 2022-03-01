@@ -1,12 +1,14 @@
 <main class="login">
-    <h2>{{heading}}</h2>
-    <span>{{error}}</span>
-    <form action="{{action}}" method="post">
-        <label for="email">Email</label>
-        <input type="text" name="email">
-        <label for="password">Password</label>
-        <input type="password" name="password">
-        <input type="submit" value="Login">
-    </form>
-    <a href="{{register_link}}">Register</a>
+    <section>
+        <h2>{{heading}}</h2>
+        <span>{{error}}</span>
+        <form action="{{action}}" method="post">
+            <label for="email">Email</label>
+            <input type="text" name="email">
+            <label for="password">Password</label>
+            <input type="password" name="password">
+                <input type="submit" value="Login">
+        </form>
+        <div class="register-link"><a href="{{register_link}}">Register</a></div>
+    </section>
 </main>

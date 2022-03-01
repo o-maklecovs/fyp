@@ -111,8 +111,7 @@ main {
 .login form input[type="submit"] {
     justify-self: center;
 }
-.login a {
-    display: block;
+.register-link {
     text-align: center;
 }
 
@@ -297,5 +296,15 @@ main {
     footer {
         margin-top: 1em;
         margin-bottom: 1em;
+    }
+
+    .login {
+        width: 30vw;
+        margin: auto;
+    }
+
+    .register {
+        width: 30vw;
+        margin: auto;
     }
 }
