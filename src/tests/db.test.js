@@ -95,7 +95,7 @@ test('get all jobs', async () => {
     expect(result[0]).toBeTruthy();
 });
 
-test.only('get job by id', async () => {
+test('get job by id', async () => {
     const id = '1';
     const result = await db.getJobById(id);
     expect(result[0]).toBeTruthy();
