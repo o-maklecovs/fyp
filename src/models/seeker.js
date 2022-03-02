@@ -1,18 +1,24 @@
 class Seeker {
-    constructor(details, db) {
-        this.details = details;
-        this.db = db;
+    #details;
+    #db;
+    #bcryptWrapper;
+
+    constructor(details, db, bcryptWrapper) {
+        this.#details = details;
+        this.#db = db;
+        this.#bcryptWrapper = bcryptWrapper;
     }
 
     create() { }
 
-    static async verifyPassword(email, pwd, db) {
-
-        // hash password
-
-        const verifyPwd = await db.checkPasswordSeeker(email, pwd);
-        
-        return verifyPwd;
+    static async verifyPassword(email, password, db, bcryptWrapper) {
+        const hashedPassword = await db.getPasswordSeeker(email);
+        if (hashedPassword.length > 0) {
+            const match = bcryptWrapper.comparePassword(password, hashedPassword)
+                .then(true)
+                .catch(false);
+        }
+        return false;
     }
 
     updatePassword(newPassword) { }

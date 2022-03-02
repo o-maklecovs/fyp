@@ -115,7 +115,7 @@ test('get seeker by email', async () => {
     expect(result).toBeTruthy();
 });
 
-test.only('get seeker\'s jobs', async () => {
+test('get seeker\'s jobs', async () => {
     const id = '1';
     const result = await db.getAppliedJobs(id);
     console.log(result);
@@ -135,9 +135,8 @@ test('get favourites by seeker id', async () => {
     expect(result[0]).toBeTruthy();
 });
 
-test('check seeker\'s password', async () => {
+test.only('get seeker\'s password', async () => {
     const email = 'john@gmail.com';
-    const password = 'secret';
-    const result = await db.checkPasswordSeeker(email, password);
+    const result = await db.getPasswordSeeker(email);
     expect(result).toBeTruthy();
 });

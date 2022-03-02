@@ -37,7 +37,9 @@ class Db {
     }
 
     updateEmployerPassword(id, password) {
-        const query = `UPDATE employers SET password = ${this.#conn.escape(password)} WHERE id = ${this.#conn.escape(id)}`;
+        const escapedId = this.#conn.escape(id);
+        const escapedPassword = this.#conn.escape(password);
+        const query = `UPDATE employers SET password = ${escapedPassword} WHERE id = ${escapedId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -47,8 +49,9 @@ class Db {
         });
     }
 
-    getPostedJobs(employerId) {
-        const query = `SELECT * FROM jobs WHERE employer_id = ${this.#conn.escape(employerId)}`;
+    getPostedJobs(eId) {
+        const escapedEId = this.#conn.escape(eId)
+        const query = `SELECT * FROM jobs WHERE employer_id = ${escapedEId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -59,7 +62,8 @@ class Db {
     }
 
     getApplicantsById(eId) {
-        const query = `SELECT seekers.* FROM seekers, applications, jobs WHERE jobs.employer_id = ${this.#conn.escape(eId)} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+        const escapedEId = this.#conn.escape(eId);
+        const query = `SELECT seekers.* FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -103,7 +107,8 @@ class Db {
     }
 
     deleteJob(id) {
-        const query = `DELETE FROM jobs WHERE id = ${this.#conn.escape(id)} LIMIT 1`;
+        const escapedId = this.#conn.escape(id);
+        const query = `DELETE FROM jobs WHERE id = ${escapedId} LIMIT 1`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -142,7 +147,9 @@ class Db {
     }
 
     updatePasswordSeeker(id, newPassword) {
-        const query = `UPDATE seekers SET password = ${this.#conn.escape(newPassword)} WHERE id = ${this.#conn.escape(id)}`;
+        const escapedId = this.#conn.escape(id);
+        const escapedNewPassword = this.#conn.escape(newPassword);
+        const query = `UPDATE seekers SET password = ${escapedNewPassword} WHERE id = ${escapedId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -153,7 +160,8 @@ class Db {
     }
 
     getSeekerByEmail(email) {
-        const query = `SELECT * FROM seekers WHERE email = ${this.#conn.escape(email)}`;
+        const escapedEmail = this.#conn.escape(email);
+        const query = `SELECT * FROM seekers WHERE email = ${escapedEmail}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -163,11 +171,11 @@ class Db {
         });
     }
 
-    apply(jobId, seekerId, date) {
-        const jobIdEsc = this.#conn.escape(jobId);
-        const seekerIdEsc = this.#conn.escape(seekerId);
-        const dateEsc = this.#conn.escape(date);
-        const query = `INSERT INTO applications (seeker_id, job_id, date, cv) VALUES (${seekerIdEsc}, ${jobIdEsc}, ${dateEsc}, 'cv.pdf')`;
+    apply(jId, sId, date) {
+        const escapedJId = this.#conn.escape(jId);
+        const escapedSId = this.#conn.escape(sId);
+        const escapedDate = this.#conn.escape(date);
+        const query = `INSERT INTO applications (seeker_id, job_id, date, cv) VALUES (${escapedSId}, ${escapedJId}, ${escapedDate}, 'cv.pdf')`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -178,7 +186,8 @@ class Db {
     }
 
     getAppliedJobs(id) {
-        const query = `SELECT jobs.* FROM jobs, applications WHERE applications.seeker_id = ${this.#conn.escape(id)} AND jobs.id = applications.id`;
+        const escapedId = this.#conn.escape(id);
+        const query = `SELECT jobs.* FROM jobs, applications WHERE applications.seeker_id = ${escapedId} AND jobs.id = applications.id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -189,7 +198,9 @@ class Db {
     }
 
     addToFavourites(jId, sId) {
-        const query = `INSERT INTO saved_jobs (job_id, seeker_id) VALUES (${this.#conn.escape(jId)}, ${this.#conn.escape(sId)})`;
+        const escapedJId = this.#conn.escape(jId);
+        const escapedSId = this.#conn.escape(sId);
+        const query = `INSERT INTO saved_jobs (job_id, seeker_id) VALUES (${escapedJId}, ${escapedSId})`;
         
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -200,7 +211,8 @@ class Db {
     }
 
     getFavouritesById(sId) {
-        const query = `SELECT * FROM saved_jobs WHERE seeker_id = ${this.#conn.escape(sId)}`;
+        const escapedSId = this.#conn.escape(sId);
+        const query = `SELECT * FROM saved_jobs WHERE seeker_id = ${escapedSId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -210,17 +222,14 @@ class Db {
         });
     }
 
-    checkPasswordSeeker(email, password) {
+    getPasswordSeeker(email) {
         const escapedEmail = this.#conn.escape(email);
-        const escapedPassword = this.#conn.escape(password);
-
-        const query = `SELECT * FROM seekers WHERE email = ${escapedEmail} AND password = ${escapedPassword}`;
+        const query = `SELECT password FROM seekers WHERE email = ${escapedEmail}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
                 if (err) rej(err);
-                if (Object.keys(result).length === 0) res(false);
-                else res(true);
+                res(result);
             })
         });
     }
