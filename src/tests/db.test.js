@@ -27,6 +27,12 @@ test('create employer', async () => {
     expect(result.insertId).toBeTruthy();
 });
 
+test('get employer by email', async () => {
+    const email = 'google@gmail.com';
+    const result = await db.getEmployerByEmail(email);
+    expect(result[0]).toBeTruthy();
+});
+
 test('get posted jobs by employer id', async () => {
     const eId = '1';
     const result = await db.getApplicantsById(eId);
@@ -38,6 +44,12 @@ test('update employer\'s password', async () => {
     const password = 'newsecret';
     const result = await db.updateEmployerPassword(id, password);
     expect(result.changedRows).toBeTruthy();
+});
+
+test('get employer\'s password', async () => {
+    const email = 'google@gmail.com';
+    const result = await db.getPasswordEmployer(email);
+    expect(result[0]).toBeTruthy();
 });
 
 test('create job', async () => {
@@ -69,7 +81,7 @@ test('update job', async () => {
         date: new Date().toISOString()
     };
     const result = await db.updateJob(details);
-    expect(result).toBeTruthy();
+    expect(result.affectedRows).toBeTruthy();
 });
 
 test('delete job', async () => {
@@ -80,6 +92,12 @@ test('delete job', async () => {
 
 test('get all jobs', async () => {
     const result = await db.getAllJobs();
+    expect(result[0]).toBeTruthy();
+});
+
+test.only('get job by id', async () => {
+    const id = '1';
+    const result = await db.getJobById(id);
     expect(result[0]).toBeTruthy();
 });
 
@@ -112,7 +130,7 @@ test('apply for job', async () => {
 test('get seeker by email', async () => {
     const email = 'john@gmail.com';
     const result = await db.getSeekerByEmail(email);
-    expect(result).toBeTruthy();
+    expect(result[0]).toBeTruthy();
 });
 
 test('get seeker\'s jobs', async () => {
@@ -135,8 +153,8 @@ test('get favourites by seeker id', async () => {
     expect(result[0]).toBeTruthy();
 });
 
-test.only('get seeker\'s password', async () => {
+test('get seeker\'s password', async () => {
     const email = 'john@gmail.com';
     const result = await db.getPasswordSeeker(email);
-    expect(result).toBeTruthy();
+    expect(result[0]).toBeTruthy();
 });

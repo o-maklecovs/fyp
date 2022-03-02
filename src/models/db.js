@@ -36,6 +36,18 @@ class Db {
         });
     }
 
+    getEmployerByEmail(email) {
+        const escapedEmail = this.#conn.escape(email);
+        const query = `SELECT * FROM employers WHERE email = ${escapedEmail}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     updateEmployerPassword(id, password) {
         const escapedId = this.#conn.escape(id);
         const escapedPassword = this.#conn.escape(password);
@@ -46,6 +58,18 @@ class Db {
                 if (err) rej(err);
                 res(result);
             });
+        });
+    }
+
+    getPasswordEmployer(email) {
+        const escapedEmail = this.#conn.escape(email);
+        const query = `SELECT password FROM employers WHERE email = ${escapedEmail}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            })
         });
     }
 
@@ -121,6 +145,18 @@ class Db {
     getAllJobs() {
         const query = 'SELECT * FROM jobs';
 
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getJobById(id) {
+        const escapedId = this.#conn.escape(id);
+        const query = `SELECT * FROM jobs WHERE id = ${escapedId}`;
+        
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
                 if (err) rej(err);
