@@ -20,7 +20,7 @@ class Employer {
     static async verifyPassword(email, password, db, bcryptWrapper) {
         let match = false;
         const hashedPassword = await db.getPasswordEmployer(email);
-        if (hashedPassword[0].password.length > 0) {
+        if (hashedPassword.length) {
             match = await bcryptWrapper.comparePassword(password, hashedPassword[0].password);
         }
         return match;

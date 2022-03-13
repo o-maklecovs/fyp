@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
             heading: 'Employer',
             action: '/employer',
             register_link: '/register-employer',
-            error: false
+            err: false
         });
     }
 });
@@ -31,14 +31,14 @@ router.post('/', async (req, res) => {
             const auth = new Authenticate();
             const token = auth.login(email);
             res.cookie('token', token, { httpOnly: true });
-            res.redirect('/profile');
+            res.redirect('/profile-employer');
         } else {
             res.render('login', {
                 title: 'myJobs - Employer',
                 heading: 'Employer',
                 action: '/employer',
                 register_link: '/register-employer',
-                error: 'Incorrect email or password'
+                err: 'Incorrect email or password'
             });
         }
     }

@@ -1,8 +1,12 @@
 <main class="login">
     <section>
         <h2>{{heading}}</h2>
-        {{#if error}}
-        <span>{{error}}</span>
+        {{#if err}}
+        <article class="errors">
+            <ul>
+                <li>{{err}}</li>
+            </ul>
+        </article>
         {{/if}}
         <form action="{{action}}" method="post">
             <label for="email">Email</label>

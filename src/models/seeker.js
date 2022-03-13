@@ -19,9 +19,11 @@ class Seeker {
 
     static async verifyPassword(email, password, db, bcryptWrapper) {
         let match = false;
-        const hashedPassword = await db.getPasswordSeeker(email);
-        if (hashedPassword[0].password.length > 0) {
-            match = await bcryptWrapper.comparePassword(password, hashedPassword[0].password);
+        if (password) {
+            const hashedPassword = await db.getPasswordSeeker(email);
+            if (hashedPassword.length) {
+                match = await bcryptWrapper.comparePassword(password, hashedPassword[0].password);
+            }
         }
         return match;
     }

@@ -13,7 +13,7 @@ router.get('/', async (req, res) => {
             heading: 'Login',
             action: '/login',
             register_link: '/register',
-            error: ''
+            err: false
         });
     }
 });
@@ -38,7 +38,7 @@ router.post('/', async (req, res) => {
                 heading: 'Login',
                 action: '/login',
                 register_link: '/register',
-                error: 'Incorrect email or password'
+                err: 'Incorrect email or password'
             });
         }
     }
