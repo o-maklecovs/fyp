@@ -20,13 +20,12 @@ class Db {
     }
 
     createEmployer(details) {
-        let vals = [];
-        for (const key in details) {
-            vals.push(this.#conn.escape(details[key]));
-        }
-        vals = vals.join(', ');
+        const id = this.#conn.escape(details.id);
+        const company = this.#conn.escape(details.company);
+        const email = this.#conn.escape(details.email);
+        const password = this.#conn.escape(details.password);
 
-        const query = `INSERT INTO employers (id, company_name, email, password) VALUES (${vals})`;
+        const query = `INSERT INTO employers (id, company_name, email, password) VALUES (${id}, ${company}, ${email}, ${password})`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

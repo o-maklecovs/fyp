@@ -1,7 +1,9 @@
 <main class="login">
     <section>
         <h2>{{heading}}</h2>
+        {{#if error}}
         <span>{{error}}</span>
+        {{/if}}
         <form action="{{action}}" method="post">
             <label for="email">Email</label>
             <input type="text" name="email">
