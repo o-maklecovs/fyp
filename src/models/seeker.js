@@ -5,20 +5,25 @@ class Seeker {
 
     constructor(details, db, bcryptWrapper) {
         this.#details = details;
+        if (!this.#details.hasOwnProperty('id')) {
+            this.#details.id = '0';
+        }
         this.#db = db;
         this.#bcryptWrapper = bcryptWrapper;
     }
 
-    create() { }
+    async create() {
+        this.#details.password = await this.#bcryptWrapper.hashPassword(this.#details.password);
+        await this.#db.createSeeker(this.#details);
+    }
 
     static async verifyPassword(email, password, db, bcryptWrapper) {
+        let match = false;
         const hashedPassword = await db.getPasswordSeeker(email);
-        if (hashedPassword.length > 0) {
-            const match = bcryptWrapper.comparePassword(password, hashedPassword)
-                .then(true)
-                .catch(false);
+        if (hashedPassword[0].password.length > 0) {
+            match = await bcryptWrapper.comparePassword(password, hashedPassword[0].password);
         }
-        return false;
+        return match;
     }
 
     updatePassword(newPassword) { }

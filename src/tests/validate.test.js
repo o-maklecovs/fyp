@@ -13,7 +13,7 @@ test('validate email', () => {
     expect(validate.validateEmail(email)).toBeTruthy();
 });
 
-test('validate name', () => {
-    const name = 'John Doe';
-    expect(validate.validateName(name)).toBeTruthy();
+test('validate string', () => {
+    const str = 'John Doe';
+    expect(validate.validateString(str)).toBeTruthy();
 });

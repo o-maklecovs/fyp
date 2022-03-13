@@ -11,9 +11,9 @@ class Validate {
         return regex.test(email);
     }
 
-    validateName(name) {
-        const regex = /^[A-Za-z ]{2,}$/;
-        return regex.test(name);
+    validateString(str) {
+        const regex = /^[A-Za-z ]{1,}$/;
+        return regex.test(str);
     }
 }
 

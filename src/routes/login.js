@@ -2,8 +2,9 @@ const express = require('express');
 const router = express.Router();
 const Authenticate = require('../models/auth');
 const Seeker = require('../models/seeker');
+const BcryptWrapper = require('../models/bcryptWrapper');
 
-router.get('/', (req, res) => {
+router.get('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile');
     } else {
@@ -17,17 +18,15 @@ router.get('/', (req, res) => {
     }
 });
 
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile');
     } else {
         const db = res.locals.db;
-
+        const bcryptWrapper = new BcryptWrapper();
         const email = req.body.email;
         const pwd = req.body.password;
-
-        const verifyPass = Seeker.verifyPassword(email, pwd, db);
-
+        const verifyPass = await Seeker.verifyPassword(email, pwd, db, bcryptWrapper);
         if (verifyPass) {
             const auth = new Authenticate();
             const token = auth.login(email);

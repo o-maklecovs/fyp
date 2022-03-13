@@ -166,13 +166,13 @@ class Db {
     }
 
     createSeeker(details) {
-        let vals = [];
-        for (const key in details) {
-            vals.push(this.#conn.escape(details[key]));
-        }
-        vals = vals.join(', ');
+        const id = this.#conn.escape(details.id);
+        const firstName = this.#conn.escape(details.firstName);
+        const lastName = this.#conn.escape(details.lastName);
+        const email = this.#conn.escape(details.email);
+        const password = this.#conn.escape(details.password);
 
-        const query = `INSERT INTO seekers (id, first_name, last_name, email, password) VALUES (${vals})`;
+        const query = `INSERT INTO seekers (id, first_name, last_name, email, password) VALUES (${id}, ${firstName}, ${lastName}, ${email}, ${password})`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
