@@ -3,39 +3,31 @@
         <form action="/jobs" method="get" class="search-form">
             <input type="text" name="search-query" class="search-query" placeholder="Job title">
             <input type="text" name="search-city" class="search-city" placeholder="City">
-            {{!-- <select name="city">
-                <option value="London">London</option>
-                <option value="Birmingham">Birmingham</option>
-                <option value="Manchester">Manchester</option>
-                <option value="Cambridge">Cambridge</option>
-            </select> --}}
             <input type="submit" value="Search">
         </form>
     </section>
     <section class="jobs-list">
+        {{#if jobs}}
+        {{#each jobs}}
         <div class="job-item">
+            <div>
+                <a href="/job?id={{this.id}}">{{this.title}}</a>
+                <span class="company">{{this.company_name}}</span>
+            </div>
+            <span>{{this.city}}</span>
+            <span>{{this.date}}</span>
+        </div>
+        {{/each}}
+        {{else}}
+        <span class="gray-error">No jobs found</span>
+        {{/if}}
+        {{!-- <div class="job-item">
             <div>
                 <a href="/job">Software Developer</a><br>
                 <span class="company">Google</span>
             </div>
             <span>London</span>
             <span>03/01/2022</span>
-        </div>
-        <div class="job-item">
-            <div>
-                <a href="/job">Software Developer</a><br>
-                <span class="company">Google</span>
-            </div>
-            <span>London</span>
-            <span>03/01/2022</span>
-        </div>
-        <div class="job-item">
-            <div>
-                <a href="/job">Software Developer</a><br>
-                <span class="company">Google</span>
-            </div>
-            <span>London</span>
-            <span>03/01/2022</span>
-        </div>
+        </div> --}}
     </section>
 </main>

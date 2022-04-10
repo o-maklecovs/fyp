@@ -78,8 +78,10 @@ test('update job', async () => {
     expect(result.affectedRows).toBeTruthy();
 });
 
-test('get all jobs', async () => {
-    const result = await db.getAllJobs();
+test('get all jobs by city and title', async () => {
+    const title = 'Software developer';
+    const city = 'London';
+    const result = await db.getAllJobsByCityAndTitle(title, city);
     expect(result[0]).toBeTruthy();
 });
 

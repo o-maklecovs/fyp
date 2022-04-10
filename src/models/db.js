@@ -141,8 +141,11 @@ class Db {
         });
     }
 
-    getAllJobs() {
-        const query = 'SELECT * FROM jobs';
+    getAllJobsByCityAndTitle(title, city) {
+        const escapedTitle = this.#conn.escape(title);
+        const escapedCity = this.#conn.escape(city);
+
+        const query = `SELECT * FROM jobs WHERE title LIKE ${escapedTitle} AND city LIKE ${escapedCity}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
