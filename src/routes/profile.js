@@ -11,7 +11,9 @@ router.get('/', (req, res) => {
             links: [
                 { link: '/saved', text: 'Saved jobs' },
                 { link: '/applied', text: 'Applied jobs' }
-            ]});
+            ],
+            is_logged_in: res.locals.isLoggedIn
+        });
     } else {
         res.redirect('/login');
     }

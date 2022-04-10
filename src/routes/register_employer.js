@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
             heading: 'Register as employer',
             action: '/register-employer',
             is_employer: true,
-            errs: false
+            errs: false,
+            is_logged_in: res.locals.isLoggedIn
         });
     }
 });
@@ -57,7 +58,8 @@ router.post('/', async (req, res) => {
             heading: 'Register as employer',
             action: '/register-employer',
             is_employer: true,
-            errs: errors
+            errs: errors,
+            is_logged_in: res.locals.isLoggedIn
         });
     }
 });

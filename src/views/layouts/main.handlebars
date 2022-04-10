@@ -15,10 +15,17 @@
             </div>
         </header>
         <nav>
+            {{#if is_logged_in}}
+            <div>
+                <a href="/profile">Profile</a>
+                <a href="/logout">Log out</a>
+            </div>
+            {{else}}
             <div>
                 <a href="/login">Login</a>
                 <a href="/employer">Employer</a>
             </div>
+            {{/if}}
         </nav>
         {{{body}}}
         <footer>&copy; Olegs Maklecovs 2022</footer>

@@ -26,7 +26,9 @@ class Employer {
         return match;
     }
 
-    updatePassword(newPassword) { }
+    async updatePassword(newPassword) {
+        await this.#db.updateEmployerPassword(this.#details.id, newPassword);
+    }
 
     getPostedJobs() { }
 

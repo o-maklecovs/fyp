@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(dbConn);
 app.use(verifyLogin);
 
-app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home' }));
+app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home', is_logged_in: res.locals.isLoggedIn }));
 app.use('/list', require('./src/routes/list'));
 app.use('/job', require('./src/routes/job'));
 app.use('/login', require('./src/routes/login'));

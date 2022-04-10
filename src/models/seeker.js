@@ -28,7 +28,9 @@ class Seeker {
         return match;
     }
 
-    updatePassword(newPassword) { }
+    async updatePassword(newPassword) {
+        await this.#db.updatePasswordSeeker(this.#details.id, newPassword);
+    }
 
     apply(job) { }
 

@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
             heading: 'Register',
             action: '/register',
             is_employer: false,
-            errs: false
+            errs: false,
+            is_logged_in: res.locals.isLoggedIn
         });
     }
 });
@@ -61,7 +62,8 @@ router.post('/', async (req, res) => {
                 heading: 'Register',
                 action: '/register',
                 is_employer: false,
-                errs: errors
+                errs: errors,
+                is_logged_in: res.locals.isLoggedIn
             });
         }
     }

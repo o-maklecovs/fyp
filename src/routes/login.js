@@ -13,7 +13,8 @@ router.get('/', async (req, res) => {
             heading: 'Login',
             action: '/login',
             register_link: '/register',
-            err: false
+            err: false,
+            is_logged_in: res.locals.isLoggedIn
         });
     }
 });
@@ -38,7 +39,8 @@ router.post('/', async (req, res) => {
                 heading: 'Login',
                 action: '/login',
                 register_link: '/register',
-                err: 'Incorrect email or password'
+                err: 'Incorrect email or password',
+                is_logged_in: res.locals.isLoggedIn
             });
         }
     }
