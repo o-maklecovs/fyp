@@ -19,7 +19,7 @@ afterAll(() => {
 test('create employer', async () => {
     const details = {
         id: 0,
-        companyName: 'Google',
+        company: 'Google',
         email: 'google@gmail.com',
         password: 'secret'
     };
@@ -30,12 +30,6 @@ test('create employer', async () => {
 test('get employer by email', async () => {
     const email = 'google@gmail.com';
     const result = await db.getEmployerByEmail(email);
-    expect(result[0]).toBeTruthy();
-});
-
-test('get posted jobs by employer id', async () => {
-    const eId = '1';
-    const result = await db.getApplicantsById(eId);
     expect(result[0]).toBeTruthy();
 });
 
@@ -84,12 +78,6 @@ test('update job', async () => {
     expect(result.affectedRows).toBeTruthy();
 });
 
-test('delete job', async () => {
-    const id = '1';
-    const result = await db.deleteJob(id);
-    expect(result.affectedRows).toBeTruthy();
-});
-
 test('get all jobs', async () => {
     const result = await db.getAllJobs();
     expect(result[0]).toBeTruthy();
@@ -104,8 +92,8 @@ test('get job by id', async () => {
 test('create seeker', async () => {
     const details = {
         id: 0,
-        first_name: 'john',
-        last_name: 'doe',
+        firstName: 'john',
+        lastName: 'doe',
         email: 'john@gmail.com',
         password: 'secret'
     };
@@ -125,6 +113,12 @@ test('apply for job', async () => {
     const seekerId = '1';
     const result = await db.apply(jobId, seekerId, date);
     expect(result.insertId).toBeTruthy();
+});
+
+test('get applicants', async () => {
+    const eId = '1';
+    const result = await db.getApplicantsById(eId);
+    expect(result[0]).toBeTruthy();
 });
 
 test('get seeker by email', async () => {
@@ -157,4 +151,10 @@ test('get seeker\'s password', async () => {
     const email = 'john@gmail.com';
     const result = await db.getPasswordSeeker(email);
     expect(result[0]).toBeTruthy();
+});
+
+test('delete job', async () => {
+    const id = '1';
+    const result = await db.deleteJob(id);
+    expect(result.affectedRows).toBeTruthy();
 });

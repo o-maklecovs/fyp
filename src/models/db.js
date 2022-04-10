@@ -37,7 +37,7 @@ class Db {
 
     getEmployerByEmail(email) {
         const escapedEmail = this.#conn.escape(email);
-        const query = `SELECT * FROM employers WHERE email = ${escapedEmail}`;
+        const query = `SELECT id, company_name, email FROM employers WHERE email = ${escapedEmail}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -86,7 +86,7 @@ class Db {
 
     getApplicantsById(eId) {
         const escapedEId = this.#conn.escape(eId);
-        const query = `SELECT seekers.* FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+        const query = `SELECT seekers.id, seekers.first_name, seekers.last_name, seekers.email FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -196,7 +196,7 @@ class Db {
 
     getSeekerByEmail(email) {
         const escapedEmail = this.#conn.escape(email);
-        const query = `SELECT * FROM seekers WHERE email = ${escapedEmail}`;
+        const query = `SELECT id, first_name, last_name, email FROM seekers WHERE email = ${escapedEmail}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
