@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const validator = require('validator');
 
 router.get('/', async (req, res) => {
     const query = req.query.search_query;
@@ -7,6 +8,13 @@ router.get('/', async (req, res) => {
     const db = res.locals.db;
     const jobs = await db.getAllJobsByCityAndTitle(query, city);
     db.disconnect();
+
+    for (let i = 0; i < jobs.length; i++) {
+        for (const [key, value] of Object.entries(jobs[i])) {
+            jobs[i].key = validator.escape(value.toString());
+        }
+    }
+
     res.render('list', {
         title: 'myJobs - Jobs in your area',
         jobs,
