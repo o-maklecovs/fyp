@@ -1,8 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const validator = require('validator');
 const Seeker = require('../models/seeker');
 const BcryptWrapper = require('../models/bcryptWrapper');
-const Validate = require('../models/validate');
 const Authenticate = require('../models/auth');
 
 router.get('/', (req, res) => {
@@ -25,18 +25,19 @@ router.post('/', async (req, res) => {
         res.redirect('/profile');
     } else {
         const errors = {};
-        const validate = new Validate();
-        if (!validate.validateString(req.body.firstname) && !validate.validateString(req.body.lastname)) {
+        
+        if (validator.isEmpty(req.body.firstname, { ignore_whitespace: true }) || validator.isEmpty(req.body.lastname, { ignore_whitespace: true })) {
             errors.strings = 'Please type valid first and last names';
         }
-        if (!validate.validateEmail(req.body.email)) {
+        if (!validator.isEmail(req.body.email)) {
             errors.email = 'Please type valid email address';
         }
-        if (!validate.validatePassword(req.body.password)) {
+        if (!validator.isStrongPassword(req.body.password)) {
             errors.password = 'Password must be at least 8 characters long, include at least one upper case, lower case character, number and a symbol';
         } else if (req.body.password != req.body.confirmpassword) {
             errors.password = 'Please confirm password';
         }
+
         const isRegistered = await res.locals.db.getSeekerByEmail(req.body.email);
         if (isRegistered.length) {
             errors.exists = 'Account with that email already exists';

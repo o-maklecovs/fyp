@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Validate = require('../models/validate');
+const validator = require('validator');
 const BcryptWrapper = require('../models/bcryptWrapper');
 const Employer = require('../models/employer');
 const Authenticate = require('../models/auth');
@@ -22,18 +22,19 @@ router.get('/', (req, res) => {
 
 router.post('/', async (req, res) => {
     const errors = {};
-    const validate = new Validate();
-    if (!validate.validateString(req.body.companyname)) {
+
+    if (validator.isEmpty(req.body.companyname, { ignore_whitespace: true })) {
         errors.strings = 'Invalid company name';
     }
-    if (!validate.validateEmail(req.body.email)) {
-        errors.email = 'Invalid email address';
+    if (!validator.isEmail(req.body.email)) {
+        errors.email = 'Please type valid email address';
     }
-    if (!validate.validatePassword(req.body.password)) {
+    if (!validator.isStrongPassword(req.body.password)) {
         errors.password = 'Password must be at least 8 characters long, include at least one upper case, lower case character, number and a symbol';
     } else if (req.body.password != req.body.confirmpassword) {
         errors.password = 'Please confirm password';
     }
+
     const isRegistered = await res.locals.db.getEmployerByEmail(req.body.email);
     if (isRegistered.length) {
         errors.exists = 'Account with that email already exists';
