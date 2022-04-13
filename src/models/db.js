@@ -47,6 +47,18 @@ class Db {
         });
     }
 
+    getEmployerNameById(id) {
+        const escapedId = this.#conn.escape(id);
+        const query = `SELECT company_name FROM employers WHERE id = ${escapedId}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     updateEmployerPassword(id, password) {
         const escapedId = this.#conn.escape(id);
         const escapedPassword = this.#conn.escape(password);

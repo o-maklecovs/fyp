@@ -7,8 +7,7 @@ router.get('/', async (req, res) => {
     const city = req.query.search_city;
     const db = res.locals.db;
     const jobs = await db.getAllJobsByCityAndTitle(query, city);
-    db.disconnect();
-
+    
     for (let i = 0; i < jobs.length; i++) {
         for (const [key, value] of Object.entries(jobs[i])) {
             jobs[i].key = validator.escape(value.toString());
@@ -16,7 +15,11 @@ router.get('/', async (req, res) => {
         const date = new Date(jobs[i].date);
         const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
         jobs[i].date = formattedDate;
+        const companyName = await db.getEmployerNameById(jobs[i].employer_id);
+        jobs[i].company_name = companyName[0].company_name;
     }
+    
+    db.disconnect();
 
     res.render('list', {
         title: 'myJobs - Jobs in your area',
