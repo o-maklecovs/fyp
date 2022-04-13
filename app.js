@@ -4,6 +4,7 @@ const { engine } = require('express-handlebars');
 const cookieParser = require('cookie-parser');
 const verifyLogin = require('./src/middlewares/verifyLogin');
 const dbConn = require('./src/middlewares/db_conn');
+const isEmployer = require('./src/middlewares/isEmployer');
 
 const app = express();
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 app.use(dbConn);
 app.use(verifyLogin);
+app.use(isEmployer);
 
 app.get('/', (req, res) => res.render('index', { title: 'myJobs - Home', is_logged_in: res.locals.isLoggedIn }));
 app.use('/list', require('./src/routes/list'));

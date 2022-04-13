@@ -38,8 +38,9 @@ router.post('/', async (req, res) => {
             errors.password = 'Please confirm password';
         }
 
-        const isRegistered = await res.locals.db.getSeekerByEmail(req.body.email);
-        if (isRegistered.length) {
+        const isRegisteredSeeker = await res.locals.db.getSeekerByEmail(req.body.email);
+        const isRegisteredEmployer = await res.locals.db.getEmployerByEmail(req.body.email);
+        if (isRegisteredSeeker.length && isRegisteredEmployer.length) {
             errors.exists = 'Account with that email already exists';
         }
     
