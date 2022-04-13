@@ -13,6 +13,9 @@ router.get('/', async (req, res) => {
         for (const [key, value] of Object.entries(jobs[i])) {
             jobs[i].key = validator.escape(value.toString());
         }
+        const date = new Date(jobs[i].date);
+        const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        jobs[i].date = formattedDate;
     }
 
     res.render('list', {
