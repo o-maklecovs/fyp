@@ -8,8 +8,8 @@
     <section>
         <p>{{job.[0].description}}</p>
     </section>
-    {{#if isLoggedIn}}
-    {{#unless isEmployer}}
+    {{#if is_logged_in}}
+    {{#unless is_employer}}
     <form action="/job" method="post">
         <label for="upload-file">Upload your CV</label><br>
         <input type="file" name="upload-file"><br>
