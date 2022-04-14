@@ -6,7 +6,8 @@ router.get('/', (req, res) => {
         title: 'myJobs - Edit job posting',
         heading: 'Edit job posting',
         action: '/edit',
-        is_logged_in: res.locals.isLoggedIn
+        is_logged_in: res.locals.isLoggedIn,
+        is_employer: res.locals.isEmployer
     });
 });
 

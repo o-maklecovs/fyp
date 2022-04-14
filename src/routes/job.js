@@ -27,7 +27,8 @@ router.get('/', async (req, res) => {
 router.get('/edit', (req, res) => {
     res.render('edit', {
         title: 'myJobs - Create job posting',
-        is_logged_in: res.locals.isLoggedIn
+        is_logged_in: res.locals.isLoggedIn,
+        is_employer: res.locals.isEmployer
     });
 });
 

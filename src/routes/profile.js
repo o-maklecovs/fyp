@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
                 { link: '/applied', text: 'Applied jobs' }
             ],
             action: '/profile',
-            is_logged_in: res.locals.isLoggedIn
+            is_logged_in: res.locals.isLoggedIn,
+            is_employer: res.locals.isEmployer
         });
     } else {
         res.redirect('/login');

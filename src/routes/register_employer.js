@@ -15,14 +15,15 @@ router.get('/', (req, res) => {
             action: '/register-employer',
             is_employer: true,
             errs: false,
-            is_logged_in: res.locals.isLoggedIn
+            is_logged_in: res.locals.isLoggedIn,
+            is_employer: res.locals.isEmployer
         });
     }
 });
 
 router.post('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
-        res.redirect('/profile_employer');
+        res.redirect('/profile-employer');
     } else {
         const errors = {};
     
@@ -64,7 +65,8 @@ router.post('/', async (req, res) => {
                 action: '/register-employer',
                 is_employer: true,
                 errs: errors,
-                is_logged_in: res.locals.isLoggedIn
+                is_logged_in: res.locals.isLoggedIn,
+                is_employer: res.locals.isEmployer
             });
         }
     }

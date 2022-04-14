@@ -6,7 +6,8 @@ router.get('/', (req, res) => {
         title: 'myJobs - Create job posting',
         heading: 'Create job posting',
         action: '/create',
-        is_logged_in: res.locals.isLoggedIn
+        is_logged_in: res.locals.isLoggedIn,
+        is_employer: res.locals.isEmployer
     });
 });
 

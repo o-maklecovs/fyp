@@ -14,7 +14,8 @@ router.get('/', (req, res) => {
             action: '/employer',
             register_link: '/register-employer',
             err: false,
-            is_logged_in: res.locals.isLoggedIn
+            is_logged_in: res.locals.isLoggedIn,
+            is_employer: res.locals.isEmployer
         });
     }
 });
@@ -40,7 +41,8 @@ router.post('/', async (req, res) => {
                 action: '/employer',
                 register_link: '/register-employer',
                 err: 'Incorrect email or password',
-                is_logged_in: res.locals.isLoggedIn
+                is_logged_in: res.locals.isLoggedIn,
+                is_employer: res.locals.isEmployer
             });
         }
     }

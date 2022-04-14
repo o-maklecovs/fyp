@@ -24,7 +24,8 @@ router.get('/', async (req, res) => {
     res.render('list', {
         title: 'myJobs - Jobs in your area',
         jobs,
-        is_logged_in: res.locals.isLoggedIn
+        is_logged_in: res.locals.isLoggedIn,
+        is_employer: res.locals.isEmployer
     });
 });
 
