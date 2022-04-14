@@ -33,6 +33,12 @@ test('get employer by email', async () => {
     expect(result[0]).toBeTruthy();
 });
 
+test.only('get employer\'s name by id', async () => {
+    const id = '1';
+    const result = await db.getEmployerNameById(id);
+    expect(result[0]).toBeTruthy();
+});
+
 test('update employer\'s password', async () => {
     const id = '1';
     const password = 'newsecret';
