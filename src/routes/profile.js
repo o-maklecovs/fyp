@@ -8,6 +8,8 @@ router.get('/', async (req, res) => {
         const name = `${result[0].first_name} ${result[0].last_name}`;
         const email = result[0].email;
 
+        db.disconnect();
+
         res.render('profile', {
             title: 'myJobs - Profile',
             name_or_company: name,
