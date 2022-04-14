@@ -98,7 +98,7 @@ class Db {
 
     getApplicantsById(eId) {
         const escapedEId = this.#conn.escape(eId);
-        const query = `SELECT seekers.id, seekers.first_name, seekers.last_name, seekers.email FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+        const query = `SELECT seekers.id, seekers.first_name, seekers.last_name, seekers.email, applications.date FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
