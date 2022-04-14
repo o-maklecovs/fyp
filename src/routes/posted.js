@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 router.get('/', async (req, res) => {
-    if (res.locals.isLoggedIn) {
+    if (res.locals.isLoggedIn && res.locals.isEmployer) {
         const db = res.locals.db;
         const employer = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
         const jobs = await db.getPostedJobs(employer[0].id);
@@ -27,7 +27,11 @@ router.get('/', async (req, res) => {
             is_employer: res.locals.isEmployer
         });
     } else {
-        res.redirect('/employer');
+        if (res.locals.isLoggedIn) {
+            res.redirect('/profile');
+        } else {
+            res.redirect('/employer');
+        }
     }
 });
 
