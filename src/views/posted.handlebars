@@ -10,22 +10,20 @@
     </aside>
     <section>
         <h2>Posted jobs</h2>
+        {{#if jobs}}
+        {{#each jobs}}
         <div class="job-item">
             <div>
-                <a href="/job">Software Developer</a><br>
-                <span class="company">Google</span>
+                <a href="/job?id={{this.id}}">{{this.title}}</a><br>
+                <span class="company">{{this.company_name}}</span>
             </div>
-            <span>London</span>
-            <span>03/01/2022</span>
+            <span>{{this.city}}</span>
+            <span>{{this.date}}</span>
         </div>
-        <div class="job-item">
-            <div>
-                <a href="/job">Warehouse Worker</a><br>
-                <span class="company">Amazon</span>
-            </div>
-            <span>Manchester</span>
-            <span>11/01/2022</span>
-        </div>
+        {{/each}}
+        {{else}}
+        <span class="gray-error">No jobs found</span>
+        {{/if}}
     </section>
 </main>
 <script src="javascript/aside.js"></script>

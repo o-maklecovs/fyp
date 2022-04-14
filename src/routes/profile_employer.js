@@ -23,7 +23,7 @@ router.get('/', async (req, res) => {
             is_employer: res.locals.isEmployer
         });
     } else {
-        res.redirect('/login');
+        res.redirect('/employer');
     }
 });
 
