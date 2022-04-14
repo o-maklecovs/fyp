@@ -262,7 +262,7 @@ class Db {
 
     getFavouritesById(sId) {
         const escapedSId = this.#conn.escape(sId);
-        const query = `SELECT * FROM saved_jobs WHERE seeker_id = ${escapedSId}`;
+        const query = `SELECT jobs.* FROM jobs, saved_jobs WHERE saved_jobs.seeker_id = ${escapedSId} AND jobs.id = saved_jobs.job_id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

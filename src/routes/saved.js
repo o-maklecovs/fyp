@@ -5,7 +5,7 @@ router.get('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         const db = res.locals.db;
         const seeker = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const jobs = await db.getAppliedJobs(seeker[0].id);
+        const jobs = await db.getFavouritesById(seeker[0].id);
 
         for (let i = 0; i < jobs.length; i++) {
             const date = new Date(jobs[i].date);
