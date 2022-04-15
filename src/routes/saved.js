@@ -1,11 +1,13 @@
 const express = require('express');
 const router = express.Router();
+const Seeker = require('../models/seeker');
 
 router.get('/', async (req, res) => {
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
         const db = res.locals.db;
-        const seeker = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const jobs = await db.getFavouritesById(seeker[0].id);
+        const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
+        const seeker = new Seeker(result[0], db);
+        const jobs = await seeker.getFavourites();
 
         for (let i = 0; i < jobs.length; i++) {
             const date = new Date(jobs[i].date);

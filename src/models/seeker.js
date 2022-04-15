@@ -3,13 +3,12 @@ class Seeker {
     #db;
     #bcryptWrapper;
 
-    constructor(details, db, bcryptWrapper) {
+    constructor(details, db) {
         this.#details = details;
         if (!this.#details.hasOwnProperty('id')) {
             this.#details.id = '0';
         }
         this.#db = db;
-        this.#bcryptWrapper = bcryptWrapper;
     }
 
     async create() {
@@ -34,11 +33,17 @@ class Seeker {
 
     apply(job) { }
 
-    getJobs() { }
+    async getJobs() {
+        const result = await this.#db.getAppliedJobs(this.#details.id);
+        return result;
+    }
 
     addToFavourites(job) { }
 
-    getFavourites() { }
+    async getFavourites() {
+        const result = await this.#db.getFavouritesById(this.#details.id);
+        return result;
+    }
 }
 
 module.exports = Seeker;
