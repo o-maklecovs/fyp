@@ -109,13 +109,14 @@ class Db {
     }
 
     createJob(details) {
-        let vals = [];
-        for (const key in details) {
-            vals.push(this.#conn.escape(details[key]));
-        }
-        vals = vals.join(', ');
+        const escapedId = this.#conn.escape(details.id);
+        const escapedEmployerId = this.#conn.escape(details.employer_id);
+        const escapedTitle = this.#conn.escape(details.title);
+        const escapedDescription = this.#conn.escape(details.description);
+        const escapedCity = this.#conn.escape(details.city);
+        const escapedDate = this.#conn.escape(details.date);
 
-        const query = `INSERT INTO jobs (id, employer_id, title, description, city, date) VALUES (${vals})`;
+        const query = `INSERT INTO jobs (id, employer_id, title, description, city, date) VALUES (${escapedId}, ${escapedEmployerId}, ${escapedTitle}, ${escapedDescription}, ${escapedCity}, ${escapedDate})`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
