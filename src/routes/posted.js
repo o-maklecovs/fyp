@@ -1,17 +1,19 @@
 const express = require('express');
 const router = express.Router();
+const Employer = require('../models/employer');
 
 router.get('/', async (req, res) => {
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
         const db = res.locals.db;
-        const employer = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
-        const jobs = await db.getPostedJobs(employer[0].id);
+        const result = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
+        const employer = new Employer(result[0], db);
+        const jobs = await employer.getPostedJobs();
 
         for (let i = 0; i < jobs.length; i++) {
             const date = new Date(jobs[i].date);
             const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
             jobs[i].date = formattedDate;
-            jobs[i].company_name = employer[0].company_name;
+            jobs[i].company_name = result[0].company_name;
         }
 
         db.disconnect();
