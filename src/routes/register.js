@@ -13,7 +13,6 @@ router.get('/', (req, res) => {
             title: 'myJobs - Register',
             heading: 'Register',
             action: '/register',
-            is_employer: false,
             errs: false,
             is_logged_in: res.locals.isLoggedIn,
             is_employer: res.locals.isEmployer
@@ -64,7 +63,6 @@ router.post('/', async (req, res) => {
                 title: 'myJobs - Register',
                 heading: 'Register',
                 action: '/register',
-                is_employer: false,
                 errs: errors,
                 is_logged_in: res.locals.isLoggedIn,
                 is_employer: res.locals.isEmployer

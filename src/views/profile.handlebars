@@ -13,6 +13,15 @@
         <p>{{name_or_company}}</p>
         <p>{{email}}</p>
         <h2>Change password</h2>
+        {{#if errs}}
+        <article class="errors">
+            <ul>
+                {{#each errs}}
+                <li>{{this}}</li>
+                {{/each}}
+            </ul>
+        </article>
+        {{/if}}
         <form action="{{action}}" method="post">
             <label for="password">New password</label>
             <input type="password" name="password">
