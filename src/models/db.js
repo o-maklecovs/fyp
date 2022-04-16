@@ -127,12 +127,12 @@ class Db {
     }
 
     updateJob(details) {
-        let vals = {};
-        for (const key in details) {
-            vals[key] = this.#conn.escape(details[key]);
-        }
+        const escapedId = this.#conn.escape(details.id);
+        const escapedTitle = this.#conn.escape(details.title);
+        const escapedDescription = this.#conn.escape(details.description);
+        const escapedCity = this.#conn.escape(details.city);
 
-        const query = `UPDATE jobs SET title = ${vals.title}, description = ${vals.description}, city = ${vals.city}, date = ${vals.date} WHERE id = ${vals.id}`;
+        const query = `UPDATE jobs SET title = ${escapedTitle}, description = ${escapedDescription}, city = ${escapedCity} WHERE id = ${escapedId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

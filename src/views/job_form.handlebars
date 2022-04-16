@@ -11,11 +11,11 @@
     {{/if}}
     <form action="{{action}}" method="post">
         <label for="title">Title</label>
-        <input type="text" name="title">
+        <input type="text" name="title" value="{{job.title}}">
         <label for="city">City</label>
-        <input type="text" name="city">
+        <input type="text" name="city" value="{{job.city}}">
         <label for="description">Description</label>
-        <textarea name="description" rows="20"></textarea>
+        <textarea name="description" rows="20">{{job.description}}</textarea>
         <div><input type="submit" value="Submit"></div>
     </form>
 </main>
