@@ -20,7 +20,10 @@ class Job {
         return result;
     }
     
-    delete() { }
+    async delete() {
+        const result = await this.#db.deleteJob(this.#details.id);
+        return result;
+    }
 }
 
 module.exports = Job;
