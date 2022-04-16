@@ -31,4 +31,16 @@ router.get('/', async (req, res) => {
     }
 });
 
+router.post('/', async (req, res) => {
+    if (res.locals.isLoggedIn && !res.locals.isEmployer) {
+
+    } else {
+        if (res.locals.isLoggedIn) {
+            res.redirect('/profile-employer');
+        } else {
+            res.redirect('/login');
+        }
+    }
+});
+
 module.exports = router;

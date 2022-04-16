@@ -11,8 +11,8 @@ class Employer {
         this.#db = db;
     }
 
-    async create() {
-        this.#details.password = await this.#bcryptWrapper.hashPassword(this.#details.password);
+    async create(bcryptWrapper) {
+        this.#details.password = await bcryptWrapper.hashPassword(this.#details.password);
         await this.#db.createEmployer(this.#details);
     }
 

@@ -53,8 +53,8 @@ router.post('/', async (req, res) => {
                 password: req.body.password
             };
             const bcryptWrapper = new BcryptWrapper();
-            const seeker = new Seeker(details, res.locals.db, bcryptWrapper);
-            seeker.create();
+            const seeker = new Seeker(details, res.locals.db);
+            seeker.create(bcryptWrapper);
             const auth = new Authenticate();
             const token = auth.login(details.email);
             res.cookie('token', token, { httpOnly: true });
