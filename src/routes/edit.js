@@ -53,29 +53,34 @@ router.post('/', async (req, res) => {
         const db = res.locals.db;
         const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
         const jobResult = await db.getJobById(req.query.id);
-        const details = {
-            id: jobResult[0].id,
-            employer_id: employerResult[0].id,
-            title: req.body.title,
-            description: req.body.description,
-            city: req.body.city,
-            date: jobResult[0].date
-        };
 
-        if (Object.keys(errors).length === 0) {
-            const job = new Job(details, db);
-            await job.update();
-            res.redirect(`/job?id=${details.id}`);
+        if (jobResult[0].employer_id == employerResult[0].id) {
+            const details = {
+                id: jobResult[0].id,
+                employer_id: employerResult[0].id,
+                title: req.body.title,
+                description: req.body.description,
+                city: req.body.city,
+                date: jobResult[0].date
+            };
+    
+            if (Object.keys(errors).length === 0) {
+                const job = new Job(details, db);
+                await job.update();
+                res.redirect(`/job?id=${details.id}`);
+            } else {
+                res.render('job_form', {
+                    title: 'myJobs - Edit job posting',
+                    heading: 'Edit job posting',
+                    action: `/edit?id=${details.id}`,
+                    job: details,
+                    is_logged_in: res.locals.isLoggedIn,
+                    is_employer: res.locals.isEmployer,
+                    errs: errors
+                });
+            }
         } else {
-            res.render('job_form', {
-                title: 'myJobs - Edit job posting',
-                heading: 'Edit job posting',
-                action: `/edit?id=${details.id}`,
-                job: details,
-                is_logged_in: res.locals.isLoggedIn,
-                is_employer: res.locals.isEmployer,
-                errs: errors
-            });
+            res.redirect('/profile-employer');
         }
     } else {
         if (res.locals.isLoggedIn) {
