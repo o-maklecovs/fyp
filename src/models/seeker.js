@@ -1,7 +1,6 @@
 class Seeker {
     #details;
     #db;
-    #bcryptWrapper;
 
     constructor(details, db) {
         this.#details = details;

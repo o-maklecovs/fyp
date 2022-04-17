@@ -1,7 +1,6 @@
 class Employer {
     #details;
     #db;
-    #bcryptWrapper;
 
     constructor(details, db) {
         this.#details = details;
@@ -25,8 +24,9 @@ class Employer {
         return match;
     }
 
-    async updatePassword(newPassword) {
-        await this.#db.updateEmployerPassword(this.#details.id, newPassword);
+    async updatePassword(bcryptWrapper) {
+        this.#details.password = await bcryptWrapper.hashPassword(this.#details.password);
+        await this.#db.updateEmployerPassword(this.#details.id, this.#details.password);
     }
 
     async getPostedJobs() {
