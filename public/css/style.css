@@ -39,6 +39,15 @@ input[type=submit]:hover, button:hover {
     cursor: pointer;
     background: #e60;
 }
+.job-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.job-heading a {
+    margin-left: 1em;
+}
 .search-form {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -301,6 +310,10 @@ main {
     footer {
         margin-top: 1em;
         margin-bottom: 1em;
+    }
+
+    .job-controls {
+        flex-direction: row;
     }
 
     .login {
