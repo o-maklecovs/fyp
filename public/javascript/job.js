@@ -16,7 +16,16 @@ async function save(id) {
 }
 
 async function unsave(id) {
-    // unsave job
+    const saveBtn = document.createElement('button');
+    saveBtn.textContent = 'Save';
+    saveBtn.addEventListener('click', () => save(id));
+    unsaveBtn.remove();
+    const jobControls = document.querySelector('.job-controls');
+    jobControls.appendChild(saveBtn);
+    await fetch(`/unsavejob?id=${id}`, {
+        method: 'POST',
+        mode: 'same-origin'
+    });
 }
 
 const saveBtn = document.querySelector('#save-job');
@@ -25,7 +34,7 @@ if (saveBtn) {
     saveBtn.addEventListener('click', () => save(jobId));
 }
 
-const unsaveBtn = document.querySelector('.unsave-job');
+const unsaveBtn = document.querySelector('#unsave-job');
 
 if (unsaveBtn) {
     unsaveBtn.addEventListener('click', () => unsave(jobId));

@@ -261,6 +261,19 @@ class Db {
         });
     }
 
+    removeFromFavourites(jId, sId) {
+        const escapedJId = this.#conn.escape(jId);
+        const escapedSId = this.#conn.escape(sId);
+        const query = `DELETE FROM saved_jobs WHERE job_id = ${escapedJId} AND seeker_id =  ${escapedSId} LIMIT 1`;
+        
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     getFavouritesById(sId) {
         const escapedSId = this.#conn.escape(sId);
         const query = `SELECT jobs.* FROM jobs, saved_jobs WHERE saved_jobs.seeker_id = ${escapedSId} AND jobs.id = saved_jobs.job_id`;

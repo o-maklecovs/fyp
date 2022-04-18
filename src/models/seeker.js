@@ -42,6 +42,10 @@ class Seeker {
         await this.#db.addToFavourites(jobId, this.#details.id);
     }
 
+    async removeFromFavourites(jobId) {
+        await this.#db.removeFromFavourites(jobId, this.#details.id);
+    }
+
     async getFavourites() {
         const result = await this.#db.getFavouritesById(this.#details.id);
         return result;
