@@ -6,6 +6,8 @@ const Employer = require('../models/employer');
 const Authenticate = require('../models/auth');
 
 router.get('/', (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn) {
         res.redirect('/profile-employer');
     } else {
@@ -19,9 +21,13 @@ router.get('/', (req, res) => {
             is_employer: res.locals.isEmployer
         });
     }
+
+    db.disconnect();
 });
 
 router.post('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn) {
         res.redirect('/profile-employer');
     } else {
@@ -39,8 +45,8 @@ router.post('/', async (req, res) => {
             errors.password = 'Please confirm password';
         }
     
-        const isRegisteredSeeker = await res.locals.db.getSeekerByEmail(req.body.email);
-        const isRegisteredEmployer = await res.locals.db.getEmployerByEmail(req.body.email);
+        const isRegisteredSeeker = await db.getSeekerByEmail(req.body.email);
+        const isRegisteredEmployer = await db.getEmployerByEmail(req.body.email);
         if (isRegisteredSeeker.length && isRegisteredEmployer.length) {
             errors.exists = 'Account with that email already exists';
         }
@@ -52,7 +58,7 @@ router.post('/', async (req, res) => {
                 password: req.body.password
             };
             const bcryptWrapper = new BcryptWrapper();
-            const employer = new Employer(details, res.locals.db);
+            const employer = new Employer(details, db);
             employer.create(bcryptWrapper);
             const auth = new Authenticate();
             const token = auth.login(details.email);
@@ -70,6 +76,8 @@ router.post('/', async (req, res) => {
             });
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

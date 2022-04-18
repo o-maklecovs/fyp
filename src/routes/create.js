@@ -4,6 +4,8 @@ const validator = require('validator');
 const Job = require('../models/job');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+    
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
         res.render('job_form', {
             title: 'myJobs - Create job posting',
@@ -19,9 +21,13 @@ router.get('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 router.post('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
         const errors = {};
 
@@ -36,7 +42,6 @@ router.post('/', async (req, res) => {
         }
 
         if (Object.keys(errors).length === 0) {
-            const db = res.locals.db;
             const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
             const details = {
                 employer_id: employerResult[0].id,
@@ -66,6 +71,8 @@ router.post('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

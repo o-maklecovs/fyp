@@ -21,10 +21,11 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn) {
         res.redirect('/profile');
     } else {
-        const db = res.locals.db;
         const bcryptWrapper = new BcryptWrapper();
         const email = req.body.email;
         const pwd = req.body.password;
@@ -46,6 +47,8 @@ router.post('/', async (req, res) => {
             });
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

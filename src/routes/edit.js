@@ -4,8 +4,9 @@ const validator = require('validator');
 const Job = require('../models/job');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const db = res.locals.db;
         const jobResult = await db.getJobById(req.query.id);
         const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
 
@@ -34,9 +35,13 @@ router.get('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 router.post('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
         const errors = {};
 
@@ -50,7 +55,6 @@ router.post('/', async (req, res) => {
             errors.city = 'Please add a city';
         }
 
-        const db = res.locals.db;
         const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
         const jobResult = await db.getJobById(req.query.id);
 
@@ -89,6 +93,8 @@ router.post('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

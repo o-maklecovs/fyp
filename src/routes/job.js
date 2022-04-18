@@ -33,6 +33,8 @@ router.get('/', async (req, res) => {
             is_employer: res.locals.isEmployer,
             is_correct_employer: isCorrectEmployer
     });
+
+    db.disconnect();
 });
 
 module.exports = router;

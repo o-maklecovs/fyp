@@ -5,14 +5,14 @@ const Employer = require('../models/employer');
 const BcryptWrapper = require('../models/bcryptWrapper');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const db = res.locals.db;
         const result = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
         const name = result[0].company_name;
         const email = result[0].email;
 
-        db.disconnect();
-
+        
         res.render('profile', {
             title: 'myJobs - Employer profile',
             name_or_company: name,
@@ -32,9 +32,13 @@ router.get('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 router.post('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
         const errors = {};
 
@@ -44,7 +48,6 @@ router.post('/', async (req, res) => {
             errors.password = 'Please confirm password';
         }
 
-        const db = res.locals.db;
         const result = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
 
         if (Object.keys(errors).length === 0) {
@@ -80,6 +83,8 @@ router.post('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

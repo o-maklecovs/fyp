@@ -19,14 +19,14 @@ router.get('/', async (req, res) => {
         jobs[i].company_name = companyName[0].company_name;
     }
     
-    db.disconnect();
-
     res.render('list', {
         title: 'myJobs - Jobs in your area',
         jobs,
         is_logged_in: res.locals.isLoggedIn,
         is_employer: res.locals.isEmployer
     });
+
+    db.disconnect();
 });
 
 module.exports = router;

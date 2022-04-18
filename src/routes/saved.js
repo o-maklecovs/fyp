@@ -3,8 +3,9 @@ const router = express.Router();
 const Seeker = require('../models/seeker');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const db = res.locals.db;
         const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
         const seeker = new Seeker(result[0], db);
         const jobs = await seeker.getFavourites();
@@ -17,8 +18,7 @@ router.get('/', async (req, res) => {
             jobs[i].company_name = companyName[0].company_name;
         }
 
-        db.disconnect();
-
+        
         res.render('saved', {
             title: 'myJobs - Saved jobs',
             links: [
@@ -36,6 +36,8 @@ router.get('/', async (req, res) => {
             res.redirect('/login');
         }
     }
+    
+    db.disconnect();
 });
 
 module.exports = router;

@@ -3,8 +3,9 @@ const router = express.Router();
 const Employer = require('../models/employer');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const db = res.locals.db;
         const result = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
         const employer = new Employer(result[0], db);
         const jobs = await employer.getPostedJobs();
@@ -16,8 +17,7 @@ router.get('/', async (req, res) => {
             jobs[i].company_name = result[0].company_name;
         }
 
-        db.disconnect();
-
+        
         res.render('posted', {
             title: 'myJobs - Posted jobs',
             links: [
@@ -35,6 +35,8 @@ router.get('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+    
+    db.disconnect();
 });
 
 module.exports = router;

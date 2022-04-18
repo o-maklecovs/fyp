@@ -4,8 +4,9 @@ const validator = require('validator');
 const Job = require('../models/job');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const db = res.locals.db;
         const jobResult = await db.getJobById(req.query.id);
         const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
 
@@ -31,6 +32,8 @@ router.get('/', async (req, res) => {
             res.redirect('/employer');
         }
     }
+
+    db.disconnect();
 });
 
 module.exports = router;
