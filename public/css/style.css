@@ -39,6 +39,9 @@ input[type=submit]:hover, button:hover {
     cursor: pointer;
     background: #e60;
 }
+textarea {
+    font: 1em sans-serif;
+}
 .job-heading {
     display: flex;
     flex-direction: row;
@@ -47,6 +50,9 @@ input[type=submit]:hover, button:hover {
 }
 .job-heading a {
     margin-left: 1em;
+}
+.description p {
+    white-space: pre-line;
 }
 .search-form {
     display: grid;
