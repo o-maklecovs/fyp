@@ -44,6 +44,11 @@ app.use((req, res, next) => {
     res.render('notfound', { title: 'myJobs - Page not found', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
     res.status(404);
 });
+app.use((err, req, res, next) => {
+    console.error(err);
+    res.render('servererror', { title: 'myJobs - Server error', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
+    res.status(500);
+});
 
 // change later to env variable
 app.listen(5000);
