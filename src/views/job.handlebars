@@ -8,6 +8,16 @@
                 <a href="/edit?id={{job.id}}">Edit</a>
                 <a href="/delete?id={{job.id}}">Delete</a>
             </div>
+            {{else}}
+            {{#if is_saved}}
+            <div class="job-controls">
+                <button id="unsave-job">Unsave</button>
+            </div>
+            {{else}}
+            <div class="job-controls">
+                <button id="save-job">Save</button>
+            </div>
+            {{/if}}
             {{/if}}
             {{/if}}
         </div>
@@ -28,3 +38,4 @@
     {{/unless}}
     {{/if}}
 </main>
+<script src="javascript/job.js"></script>

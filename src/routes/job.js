@@ -26,12 +26,22 @@ router.get('/', async (req, res) => {
         }
     }
 
+    let isSaved = false;
+    if (res.locals.isLoggedIn && !res.locals.isEmployer) {
+        const seekerResult = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
+        const checkResult = await db.checkJobIsSaved(seekerResult[0].id, job.id);
+        if (checkResult.length) {
+            isSaved = true;
+        }
+    }
+
     res.render('job', {
             title: 'myJobs - Job title',
             job,
             is_logged_in: res.locals.isLoggedIn,
             is_employer: res.locals.isEmployer,
-            is_correct_employer: isCorrectEmployer
+            is_correct_employer: isCorrectEmployer,
+            is_saved: isSaved
     });
 
     db.disconnect();

@@ -31,14 +31,16 @@ class Seeker {
         await this.#db.updatePasswordSeeker(this.#details.id, this.#details.password);
     }
 
-    apply(job) { }
+    async apply(jobId) { }
 
     async getJobs() {
         const result = await this.#db.getAppliedJobs(this.#details.id);
         return result;
     }
 
-    addToFavourites(job) { }
+    async addToFavourites(jobId) {
+        await this.#db.addToFavourites(jobId, this.#details.id);
+    }
 
     async getFavourites() {
         const result = await this.#db.getFavouritesById(this.#details.id);

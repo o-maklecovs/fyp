@@ -273,6 +273,19 @@ class Db {
         });
     }
 
+    checkJobIsSaved(sId, jId) {
+        const escapedSId = this.#conn.escape(sId);
+        const escapedJId = this.#conn.escape(jId);
+        const query = `SELECT * FROM saved_jobs WHERE seeker_id = ${escapedSId} AND job_id = ${escapedJId}`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
     getPasswordSeeker(email) {
         const escapedEmail = this.#conn.escape(email);
         const query = `SELECT password FROM seekers WHERE email = ${escapedEmail}`;
