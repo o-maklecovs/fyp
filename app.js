@@ -40,5 +40,10 @@ app.use('/create', require('./src/routes/create'));
 app.use('/edit', require('./src/routes/edit'));
 app.use('/delete', require('./src/routes/delete'));
 
+app.use((req, res, next) => {
+    res.render('notfound', { title: 'myJobs - Page not found', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
+    res.status(404);
+});
+
 // change later to env variable
 app.listen(5000);
