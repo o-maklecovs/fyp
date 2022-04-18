@@ -155,10 +155,10 @@ class Db {
     }
 
     getAllJobsByCityAndTitle(title, city) {
-        const escapedTitle = this.#conn.escape(title);
-        const escapedCity = this.#conn.escape(city);
+        const escapedTitle = this.#conn.escape(`(\w*)${title}(\w*)`);
+        const escapedCity = this.#conn.escape(`(\w*)${city}(\w*)`);
 
-        const query = `SELECT * FROM jobs WHERE title LIKE ${escapedTitle} AND city LIKE ${escapedCity}`;
+        const query = `SELECT * FROM jobs WHERE title REGEXP ${escapedTitle} AND city REGEXP ${escapedCity}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
