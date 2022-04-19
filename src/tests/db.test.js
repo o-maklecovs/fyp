@@ -123,6 +123,13 @@ test('apply for job', async () => {
     expect(result.insertId).toBeTruthy();
 });
 
+test('get cv by job and seeker id', async () => {
+    const jobId = '1';
+    const seekerId = '1';
+    const result = await db.getCvByJobAndSeekerId(jobId, seekerId);
+    expect(result[0]).toBeTruthy();
+});
+
 test('get applicants', async () => {
     const eId = '1';
     const result = await db.getApplicantsById(eId);
@@ -153,6 +160,20 @@ test('get favourites by seeker id', async () => {
     const sId = '1';
     const result = await db.getFavouritesById(sId);
     expect(result[0]).toBeTruthy();
+});
+
+test('check job is saved', async () => {
+    const seekerId = '1';
+    const jobId = '1';
+    const result = await db.checkJobIsSaved(seekerId, jobId);
+    expect(result[0]).toBeTruthy();
+});
+
+test('remove from favourites', async () => {
+    const jobId = '1';
+    const seekerId = '1';
+    const result = await db.removeFromFavourites(jobId, seekerId);
+    expect(result.affectedRows).toBeTruthy();
 });
 
 test('get seeker\'s password', async () => {
