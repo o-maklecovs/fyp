@@ -222,11 +222,11 @@ class Db {
         });
     }
 
-    apply(jId, sId, date) {
+    apply(jId, sId, filename) {
         const escapedJId = this.#conn.escape(jId);
         const escapedSId = this.#conn.escape(sId);
-        const escapedDate = this.#conn.escape(date);
-        const query = `INSERT INTO applications (seeker_id, job_id, date, cv) VALUES (${escapedSId}, ${escapedJId}, ${escapedDate}, 'cv.pdf')`;
+        const escapedFilename = this.#conn.escape(filename);
+        const query = `INSERT INTO applications (seeker_id, job_id, date, cv) VALUES (${escapedSId}, ${escapedJId}, CURRENT_TIMESTAMP, ${escapedFilename})`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
@@ -238,7 +238,7 @@ class Db {
 
     getAppliedJobs(id) {
         const escapedId = this.#conn.escape(id);
-        const query = `SELECT jobs.* FROM jobs, applications WHERE applications.seeker_id = ${escapedId} AND jobs.id = applications.id`;
+        const query = `SELECT * FROM jobs, applications WHERE applications.seeker_id = ${escapedId} AND jobs.id = applications.job_id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

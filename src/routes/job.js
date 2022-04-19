@@ -36,12 +36,13 @@ router.get('/', async (req, res) => {
     }
 
     res.render('job', {
-            title: 'myJobs - Job title',
+            title: 'myJobs - View job ad',
             job,
             is_logged_in: res.locals.isLoggedIn,
             is_employer: res.locals.isEmployer,
             is_correct_employer: isCorrectEmployer,
-            is_saved: isSaved
+            is_saved: isSaved,
+            action: `/apply?id=${req.query.id}`
     });
 
     db.disconnect();

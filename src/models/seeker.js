@@ -31,7 +31,9 @@ class Seeker {
         await this.#db.updatePasswordSeeker(this.#details.id, this.#details.password);
     }
 
-    async apply(jobId) { }
+    async apply(jobId, filename) {
+        await this.#db.apply(jobId, this.#details.id, filename);
+    }
 
     async getJobs() {
         const result = await this.#db.getAppliedJobs(this.#details.id);
