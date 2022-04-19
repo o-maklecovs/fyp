@@ -42,6 +42,7 @@ app.use('/delete', require('./src/routes/delete'));
 app.use('/savejob', require('./src/routes/savejob'));
 app.use('/unsavejob', require('./src/routes/unsavejob'));
 app.use('/apply', require('./src/routes/apply'));
+app.use('/download-cv', require('./src/routes/download_cv'));
 
 app.use((req, res, next) => {
     res.render('notfound', { title: 'myJobs - Page not found', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });

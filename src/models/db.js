@@ -98,7 +98,20 @@ class Db {
 
     getApplicantsById(eId) {
         const escapedEId = this.#conn.escape(eId);
-        const query = `SELECT seekers.id, seekers.first_name, seekers.last_name, seekers.email, applications.date FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+        const query = `SELECT seekers.id, seekers.first_name, seekers.last_name, seekers.email, applications.date, applications.job_id FROM seekers, applications, jobs WHERE jobs.employer_id = ${escapedEId} AND jobs.id = applications.job_id AND applications.seeker_id = seekers.id`;
+
+        return new Promise((res, rej) => {
+            this.#conn.query(query, (err, result) => {
+                if (err) rej(err);
+                res(result);
+            });
+        });
+    }
+
+    getCvByJobAndSeekerId(jId, sId) {
+        const escapedSId = this.#conn.escape(sId);
+        const escapedJId = this.#conn.escape(jId);
+        const query = `SELECT cv FROM applications WHERE seeker_id = ${escapedSId} AND job_id = ${escapedJId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
