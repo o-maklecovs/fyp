@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
-const validator = require('validator');
 const Job = require('../models/job');
+const checkParams = require('../middlewares/checkParams');
 
-router.get('/', async (req, res) => {
+router.get('/', checkParams, async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
@@ -23,14 +23,10 @@ router.get('/', async (req, res) => {
             await job.delete();
             res.redirect('/posted');
         } else {
-            res.redirect('/profile-employer');
+            res.redirect('/posted');
         }
     } else {
-        if (res.locals.isLoggedIn) {
-            res.redirect('/profile');
-        } else {
-            res.redirect('/employer');
-        }
+        res.redirect('/login');
     }
 
     db.disconnect();

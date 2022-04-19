@@ -26,11 +26,7 @@ router.get('/', async (req, res) => {
             is_employer: res.locals.isEmployer
         });
     } else {
-        if (res.locals.isLoggedIn) {
-            res.redirect('/profile');
-        } else {
-            res.redirect('/employer');
-        }
+        res.redirect('/login');
     }
 
     db.disconnect();
@@ -77,11 +73,7 @@ router.post('/', async (req, res) => {
             });
         }
     } else {
-        if (res.locals.isLoggedIn) {
-            res.redirect('/profile');
-        } else {
-            res.redirect('/employer');
-        }
+        res.redirect('/login');
     }
 
     db.disconnect();

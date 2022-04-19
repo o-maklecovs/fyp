@@ -7,8 +7,9 @@ const upload = multer({ dest: process.env.DOWNLOAD_PATH });
 const Seeker = require('../models/seeker');
 const fileAuth = require('../middlewares/fileAuth');
 const fs = require('fs').promises;
+const checkParams = require('../middlewares/checkParams');
 
-router.post('/', fileAuth, upload.single('upload-file'), async (req, res) => {
+router.post('/', fileAuth, checkParams, upload.single('upload-file'), async (req, res) => {
     const db = res.locals.db;
 
     if (req.query.id) {

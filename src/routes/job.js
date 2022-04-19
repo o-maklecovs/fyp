@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
+const checkParams = require('../middlewares/checkParams');
 
-router.get('/', async (req, res) => {
+router.get('/', checkParams, async (req, res) => {
     const id = req.query.id;
     const db = res.locals.db;
     const jobResult = await db.getJobById(id);

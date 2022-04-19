@@ -46,7 +46,11 @@ app.use('/apply', require('./src/routes/apply'));
 app.use('/download-cv', require('./src/routes/download_cv'));
 
 app.use((req, res, next) => {
-    res.render('notfound', { title: 'myJobs - Page not found', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
+    res.render('notfound', {
+        title: 'myJobs - Page not found',
+        is_logged_in: res.locals.isLoggedIn,
+        is_employer: res.locals.isEmployer
+    });
     res.status(404);
 });
 

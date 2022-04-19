@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const validator = require('validator');
+const checkParams = require('../middlewares/checkParams');
 
-router.get('/', async (req, res) => {
+router.get('/', checkParams, async (req, res) => {
     const query = req.query.search_query;
     const city = req.query.search_city;
     const db = res.locals.db;
