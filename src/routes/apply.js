@@ -17,6 +17,7 @@ const upload = multer({
 });
 const Seeker = require('../models/seeker');
 const fileAuth = require('../middlewares/fileAuth');
+const fs = require('fs').promises;
 
 router.post('/', fileAuth, upload.single('upload-file'), async (req, res) => {
     const db = res.locals.db;
@@ -26,7 +27,8 @@ router.post('/', fileAuth, upload.single('upload-file'), async (req, res) => {
 
         const seekerResult = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
         const seeker = new Seeker(seekerResult[0], db);
-        await seeker.apply(jobResult[0].id, req.file.filename);
+        await fs.rename(`/uploads/${req.file.filename}`, `/uploads/${req.file.filename}.pdf`);
+        await seeker.apply(jobResult[0].id, `${req.file.filename}.pdf`);
         res.redirect('/applied');
     } else {
         res.redirect('/');

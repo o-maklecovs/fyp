@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs').promises;
 
 router.get('/', async (req, res) => {
     const db = res.locals.db;
