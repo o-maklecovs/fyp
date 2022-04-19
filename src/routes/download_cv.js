@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const checkParams = require('../middlewares/checkParams');
+const dotenv = require('dotenv');
 
 router.get('/', checkParams, async (req, res) => {
     const db = res.locals.db;
@@ -12,7 +13,7 @@ router.get('/', checkParams, async (req, res) => {
         if (jobResult[0].employer_id == employerResult[0].id) {
             const cvResult = await db.getCvByJobAndSeekerId(req.query.job, req.query.seeker);
             const filename = cvResult[0].cv;
-            res.sendFile(`/uploads/${filename}`);
+            res.sendFile(`${process.env.DOWNLOAD_PATH}/${filename}`);
         } else {
             res.redirect('/applicants');
         }

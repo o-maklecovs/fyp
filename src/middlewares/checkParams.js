@@ -1,5 +1,5 @@
 function checkParams(req, res, next) {
-    if (req.query.length) {
+    if (Object.entries(req.query).length) {
         next();
     } else {
         res.render('notfound', {

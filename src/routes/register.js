@@ -59,7 +59,7 @@ router.post('/', async (req, res) => {
             };
             const bcryptWrapper = new BcryptWrapper();
             const seeker = new Seeker(details, db);
-            seeker.create(bcryptWrapper);
+            await seeker.create(bcryptWrapper);
             const auth = new Authenticate();
             const token = auth.login(details.email);
             res.cookie('token', token, { httpOnly: true });

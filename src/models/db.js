@@ -251,7 +251,7 @@ class Db {
 
     getAppliedJobs(id) {
         const escapedId = this.#conn.escape(id);
-        const query = `SELECT * FROM jobs, applications WHERE applications.seeker_id = ${escapedId} AND jobs.id = applications.job_id`;
+        const query = `SELECT jobs.* FROM jobs, applications WHERE applications.seeker_id = ${escapedId} AND jobs.id = applications.job_id`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {
