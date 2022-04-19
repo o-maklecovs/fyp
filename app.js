@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const { engine } = require('express-handlebars');
 const cookieParser = require('cookie-parser');
+const dotenv = require('dotenv');
 const verifyLogin = require('./src/middlewares/verifyLogin');
 const dbConn = require('./src/middlewares/db_conn');
 const isEmployer = require('./src/middlewares/isEmployer');
@@ -48,11 +49,5 @@ app.use((req, res, next) => {
     res.render('notfound', { title: 'myJobs - Page not found', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
     res.status(404);
 });
-app.use((err, req, res, next) => {
-    console.error(err);
-    res.render('servererror', { title: 'myJobs - Server error', is_logged_in: res.locals.isLoggedIn, is_employer: res.locals.isEmployer });
-    res.status(500);
-});
 
-// change later to env variable
-app.listen(5000);
+app.listen(process.env.PORT);
