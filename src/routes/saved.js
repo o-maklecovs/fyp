@@ -6,18 +6,13 @@ router.get('/', async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const seeker = new Seeker(result[0], db);
-        const jobs = await seeker.getFavourites();
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
+        const jobObjs = await seeker.getFavourites();
+        const jobs = [];
 
-        for (let i = 0; i < jobs.length; i++) {
-            const date = new Date(jobs[i].date);
-            const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-            jobs[i].date = formattedDate;
-            const companyName = await db.getEmployerNameById(jobs[i].employer_id);
-            jobs[i].company_name = companyName[0].company_name;
-        }
-
+        jobObjs.forEach(job => {
+            jobs.push(job.getDetails());
+        });
         
         res.render('saved', {
             title: 'myJobs - Saved jobs',

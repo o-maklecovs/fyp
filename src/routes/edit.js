@@ -2,27 +2,22 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const Job = require('../models/job');
+const Employer = require('../models/employer');
 const checkParams = require('../middlewares/checkParams');
 
 router.get('/', checkParams, async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const jobResult = await db.getJobById(req.query.id);
-        const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
+        const job = await Job.getJobById(req.query.id, db);
+        const employer = await Employer.getEmployerByEmail(res.locals.isLoggedIn.email, db);
 
-        if (jobResult[0].employer_id == employerResult[0].id) {
-            const job = {
-                title: jobResult[0].title,
-                city: jobResult[0].city,
-                description: jobResult[0].description
-            };
-    
+        if (job.getDetails().employer_id == employer.getDetails().id) {
             res.render('job_form', {
                 title: 'myJobs - Edit job posting',
                 heading: 'Edit job posting',
-                action: `/edit?id=${jobResult[0].id}`,
-                job,
+                action: `/edit?id=${job.getDetails().id}`,
+                job: job.getDetails(),
                 is_logged_in: res.locals.isLoggedIn,
                 is_employer: res.locals.isEmployer
             });
@@ -52,29 +47,28 @@ router.post('/', async (req, res) => {
             errors.city = 'Please add a city';
         }
 
-        const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
-        const jobResult = await db.getJobById(req.query.id);
+        const employer = await Employer.getEmployerByEmail(res.locals.isLoggedIn.email, db);
+        const job = await Job.getJobById(req.query.id, db);
 
-        if (jobResult[0].employer_id == employerResult[0].id) {
-            const details = {
-                id: jobResult[0].id,
-                employer_id: employerResult[0].id,
+        if (job.getDetails().employer_id == employer.getDetails().id) {
+            const newDetails = {
+                id: job.getDetails().id,
+                employer_id: employer.getDetails().id,
                 title: req.body.title,
                 description: req.body.description,
                 city: req.body.city,
-                date: jobResult[0].date
+                date: job.getDetails().date
             };
     
             if (Object.keys(errors).length === 0) {
-                const job = new Job(details, db);
-                await job.update();
-                res.redirect(`/job?id=${details.id}`);
+                await job.update(newDetails);
+                res.redirect(`/job?id=${newDetails.id}`);
             } else {
                 res.render('job_form', {
                     title: 'myJobs - Edit job posting',
                     heading: 'Edit job posting',
-                    action: `/edit?id=${details.id}`,
-                    job: details,
+                    action: `/edit?id=${newDetails.id}`,
+                    job: newDetails,
                     is_logged_in: res.locals.isLoggedIn,
                     is_employer: res.locals.isEmployer,
                     errs: errors

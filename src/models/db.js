@@ -47,9 +47,9 @@ class Db {
         });
     }
 
-    getEmployerNameById(id) {
+    getEmployerById(id) {
         const escapedId = this.#conn.escape(id);
-        const query = `SELECT company_name FROM employers WHERE id = ${escapedId}`;
+        const query = `SELECT id, company_name, email FROM employers WHERE id = ${escapedId}`;
 
         return new Promise((res, rej) => {
             this.#conn.query(query, (err, result) => {

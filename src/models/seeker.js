@@ -1,3 +1,5 @@
+const Job = require('./job');
+
 class Seeker {
     #details;
     #db;
@@ -8,6 +10,15 @@ class Seeker {
             this.#details.id = '0';
         }
         this.#db = db;
+    }
+
+    getDetails() {
+        return this.#details;
+    }
+
+    static async getSeekerByEmail(email, db) {
+        const result = await db.getSeekerByEmail(email);
+        return new this(result[0], db);
     }
 
     async create(bcryptWrapper) {
@@ -26,9 +37,9 @@ class Seeker {
         return match;
     }
 
-    async updatePassword(bcryptWrapper) {
-        this.#details.password = await bcryptWrapper.hashPassword(this.#details.password);
-        await this.#db.updatePasswordSeeker(this.#details.id, this.#details.password);
+    async updatePassword(newPassword, bcryptWrapper) {
+        const hashedPassword = await bcryptWrapper.hashPassword(newPassword);
+        await this.#db.updatePasswordSeeker(this.#details.id, hashedPassword);
     }
 
     async apply(jobId, filename) {
@@ -37,7 +48,13 @@ class Seeker {
 
     async getJobs() {
         const result = await this.#db.getAppliedJobs(this.#details.id);
-        return result;
+        const jobs = [];
+        result.forEach(entry => {
+            entry.date = this.formatDate(entry.date);
+            const job = new Job(entry, this.#db);
+            jobs.push(job);
+        });
+        return jobs;
     }
 
     async addToFavourites(jobId) {
@@ -50,7 +67,27 @@ class Seeker {
 
     async getFavourites() {
         const result = await this.#db.getFavouritesById(this.#details.id);
-        return result;
+        const jobs = [];
+        result.forEach(entry => {
+            entry.date = this.formatDate(entry.date);
+            const job = new Job(entry, this.#db);
+            jobs.push(job);
+        });
+        return jobs;
+    }
+
+    async isJobSaved(jobId) {
+        const result = await this.#db.checkJobIsSaved(this.#details.id, jobId);
+        if (result.length) {
+            return true;
+        }
+        return false;
+    }
+
+    formatDate(date) {
+        const oldDate = new Date(date);
+        const formattedDate = `${oldDate.getUTCDate()}/${oldDate.getMonth() + 1}/${oldDate.getFullYear()}`;
+        return formattedDate;
     }
 }
 

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const validator = require('validator');
 const Job = require('../models/job');
+const Employer = require('../models/employer');
 
 router.get('/', async (req, res) => {
     const db = res.locals.db;
@@ -38,9 +39,9 @@ router.post('/', async (req, res) => {
         }
 
         if (Object.keys(errors).length === 0) {
-            const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
+            const employer = await Employer.getEmployerByEmail(res.locals.isLoggedIn.email, db);
             const details = {
-                employer_id: employerResult[0].id,
+                employer_id: employer.getDetails().id,
                 title: req.body.title,
                 description: req.body.description,
                 city: req.body.city,
@@ -48,7 +49,6 @@ router.post('/', async (req, res) => {
             };
             const job = new Job(details, db);
             const result = await job.create();
-    
             res.redirect(`/job?id=${result.insertId}`);
         } else {
             res.render('job_form', {

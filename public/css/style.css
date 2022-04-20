@@ -160,6 +160,15 @@ main {
     font-size: 0.8em;
 }
 
+.applicants-link {
+    color: #777;
+    font-size: 0.8em;
+    text-decoration: none;
+}
+.applicants-link:hover {
+    text-decoration: underline;
+}
+
 /* Job screen */
 .job-details {
     display: flex;

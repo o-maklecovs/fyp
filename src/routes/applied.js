@@ -3,22 +3,17 @@ const router = express.Router();
 const Seeker = require('../models/seeker');
 
 router.get('/', async (req, res) => {
+    const db = res.locals.db;
+
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const db = res.locals.db;
-        const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const seeker = new Seeker(result[0], db);
-        const jobs = await seeker.getJobs();
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
+        const jobObjs = await seeker.getJobs();
+        const jobs = [];
 
-        for (let i = 0; i < jobs.length; i++) {
-            const date = new Date(jobs[i].date);
-            const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-            jobs[i].date = formattedDate;
-            const companyName = await db.getEmployerNameById(jobs[i].employer_id);
-            jobs[i].company_name = companyName[0].company_name;
-        }
-
-        db.disconnect();
-
+        jobObjs.forEach(job => {
+            jobs.push(job.getDetails());
+        });
+        
         res.render('applied', {
             title: 'myJobs - Applied jobs',
             links: [
@@ -32,6 +27,8 @@ router.get('/', async (req, res) => {
     } else {
         res.redirect('/login');
     }
+
+    db.disconnect();
 });
 
 module.exports = router;

@@ -8,9 +8,10 @@ router.get('/', async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const name = `${result[0].first_name} ${result[0].last_name}`;
-        const email = result[0].email;
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
+        const details = seeker.getDetails();
+        const name = `${details.first_name} ${details.last_name}`;
+        const email = details.email;
 
         
         res.render('profile', {
@@ -44,25 +45,17 @@ router.post('/', async (req, res) => {
             errors.password = 'Please confirm password';
         }
 
-        const result = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
 
         if (Object.keys(errors).length === 0) {
-            const details = {
-                id: result[0].id,
-                first_name: result[0].first_name,
-                last_name: result[0].last_name,
-                email: result[0].email,
-                password: req.body.password
-            };
             const bcryptWrapper = new BcryptWrapper();
-            const seeker = new Seeker(details, db);
-            seeker.updatePassword(bcryptWrapper);
+            await seeker.updatePassword(req.body.password, bcryptWrapper);
             res.redirect('/profile');
         } else {
             res.render('profile', {
                 title: 'myJobs - Profile',
-                name_or_company: `${result[0].first_name} ${result[0].last_name}`,
-                email: result[0].email,
+                name_or_company: `${seeker.getDetails().first_name} ${seeker.getDetails().last_name}`,
+                email: seeker.getDetails().email,
                 links: [
                     { link: '/saved', text: 'Saved jobs' },
                     { link: '/applied', text: 'Applied jobs' }

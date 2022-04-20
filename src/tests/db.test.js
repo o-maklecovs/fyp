@@ -33,9 +33,9 @@ test('get employer by email', async () => {
     expect(result[0]).toBeTruthy();
 });
 
-test('get employer\'s name by id', async () => {
+test('get employer by id', async () => {
     const id = '1';
-    const result = await db.getEmployerNameById(id);
+    const result = await db.getEmployerById(id);
     expect(result[0]).toBeTruthy();
 });
 

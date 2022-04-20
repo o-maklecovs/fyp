@@ -1,39 +1,28 @@
 const express = require('express');
 const router = express.Router();
 const checkParams = require('../middlewares/checkParams');
+const Job = require('../models/job');
+const Employer = require('../models/employer');
+const Seeker = require('../models/seeker');
 
 router.get('/', checkParams, async (req, res) => {
     const id = req.query.id;
     const db = res.locals.db;
-    const jobResult = await db.getJobById(id);
-    const job = {
-        id: jobResult[0].id,
-        title: jobResult[0].title,
-        description: jobResult[0].description,
-        city: jobResult[0].city
-    };
-
-    const date = new Date(jobResult[0].date);
-    const formattedDate = `${date.getUTCDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
-    job.date = formattedDate;
-    const companyName = await db.getEmployerNameById(jobResult[0].employer_id);
-    job.company_name = companyName[0].company_name;
+    const jobObj = await Job.getJobById(id, db);
+    const job = jobObj.getDetails();
 
     let isCorrectEmployer = false;
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
-        if (employerResult[0].id == jobResult[0].employer_id) {
+        const employerObj = await Employer.getEmployerByEmail(res.locals.isLoggedIn.email, db);
+        if (employerObj.getDetails().id == job.employer_id) {
             isCorrectEmployer = true;
         }
     }
 
     let isSaved = false;
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const seekerResult = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const checkResult = await db.checkJobIsSaved(seekerResult[0].id, job.id);
-        if (checkResult.length) {
-            isSaved = true;
-        }
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
+        isSaved = await seeker.isJobSaved(job.id);
     }
 
     res.render('job', {

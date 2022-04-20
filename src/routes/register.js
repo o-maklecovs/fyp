@@ -46,7 +46,7 @@ router.post('/', async (req, res) => {
 
         const isRegisteredSeeker = await db.getSeekerByEmail(req.body.email);
         const isRegisteredEmployer = await db.getEmployerByEmail(req.body.email);
-        if (isRegisteredSeeker.length && isRegisteredEmployer.length) {
+        if (isRegisteredSeeker.length || isRegisteredEmployer.length) {
             errors.exists = 'Account with that email already exists';
         }
     

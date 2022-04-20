@@ -1,25 +1,17 @@
 const express = require('express');
 const router = express.Router();
 const Job = require('../models/job');
+const Employer = require('../models/employer');
 const checkParams = require('../middlewares/checkParams');
 
 router.get('/', checkParams, async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
-        const jobResult = await db.getJobById(req.query.id);
-        const employerResult = await db.getEmployerByEmail(res.locals.isLoggedIn.email);
+        const job = await Job.getJobById(req.query.id, db);
+        const employer = await Employer.getEmployerByEmail(res.locals.isLoggedIn.email, db);
 
-        if (jobResult[0].employer_id == employerResult[0].id) {
-            const details = {
-                id: jobResult[0].id,
-                employer_id: jobResult[0].employer_id,
-                title: jobResult[0].title,
-                description: jobResult[0].description,
-                city: jobResult[0].city,
-                date: jobResult[0].date,
-            };
-            const job = new Job(details, db);
+        if (job.getDetails().employer_id == employer.getDetails().id) {
             await job.delete();
             res.redirect('/posted');
         } else {

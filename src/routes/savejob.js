@@ -7,14 +7,7 @@ router.post('/', checkParams, async (req, res) => {
     const db = res.locals.db;
 
     if (res.locals.isLoggedIn && !res.locals.isEmployer) {
-        const seekerResult = await db.getSeekerByEmail(res.locals.isLoggedIn.email);
-        const details = {
-            id: seekerResult[0].id,
-            first_name: seekerResult[0].first_name,
-            last: seekerResult[0].last_name,
-            email: seekerResult[0].email
-        };
-        const seeker = new Seeker(details, db);
+        const seeker = await Seeker.getSeekerByEmail(res.locals.isLoggedIn.email, db);
         await seeker.addToFavourites(req.query.id);
     } else {
         res.redirect('/login');
