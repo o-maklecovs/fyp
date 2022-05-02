@@ -31,7 +31,6 @@ router.post('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile-employer');
     } else {
-        console.log('blyat');
         const errors = {};
     
         if (validator.isEmpty(req.body.companyname, { ignore_whitespace: true })) {
