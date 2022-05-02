@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
             action: '/register',
             errs: false,
             is_logged_in: res.locals.isLoggedIn,
-            is_employer: res.locals.isEmployer
+            is_employer: res.locals.isEmployer,
+            is_employer_register: false
         });
     }
 
@@ -71,7 +72,8 @@ router.post('/', async (req, res) => {
                 action: '/register',
                 errs: errors,
                 is_logged_in: res.locals.isLoggedIn,
-                is_employer: res.locals.isEmployer
+                is_employer: res.locals.isEmployer,
+                is_employer_register: false
             });
         }
     }

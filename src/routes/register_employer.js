@@ -15,10 +15,10 @@ router.get('/', (req, res) => {
             title: 'myJobs - Register as employer',
             heading: 'Register as employer',
             action: '/register-employer',
-            is_employer: true,
             errs: false,
             is_logged_in: res.locals.isLoggedIn,
-            is_employer: res.locals.isEmployer
+            is_employer: res.locals.isEmployer,
+            is_employer_register: true
         });
     }
 
@@ -31,6 +31,7 @@ router.post('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
         res.redirect('/profile-employer');
     } else {
+        console.log('blyat');
         const errors = {};
     
         if (validator.isEmpty(req.body.companyname, { ignore_whitespace: true })) {
@@ -53,13 +54,14 @@ router.post('/', async (req, res) => {
     
         if (Object.keys(errors).length === 0) {
             const details = {
+                id: 0,
                 company: req.body.companyname,
                 email: req.body.email,
                 password: req.body.password
             };
             const bcryptWrapper = new BcryptWrapper();
             const employer = new Employer(details, db);
-            employer.create(bcryptWrapper);
+            await employer.create(bcryptWrapper);
             const auth = new Authenticate();
             const token = auth.login(details.email);
             res.cookie('token', token, { httpOnly: true });
@@ -69,10 +71,10 @@ router.post('/', async (req, res) => {
                 title: 'myJobs - Register as employer',
                 heading: 'Register as employer',
                 action: '/register-employer',
-                is_employer: true,
                 errs: errors,
                 is_logged_in: res.locals.isLoggedIn,
-                is_employer: res.locals.isEmployer
+                is_employer: res.locals.isEmployer,
+                is_employer_register: true
             });
         }
     }
