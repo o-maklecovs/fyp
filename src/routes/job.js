@@ -10,6 +10,8 @@ router.get('/', checkParams, async (req, res) => {
     const db = res.locals.db;
     const jobObj = await Job.getJobById(id, db);
     const job = jobObj.getDetails();
+    const employer = await Employer.getEmployerById(jobObj.getDetails().employer_id, db);
+    job.company_name = employer.getDetails().company_name;
 
     let isCorrectEmployer = false;
     if (res.locals.isLoggedIn && res.locals.isEmployer) {
