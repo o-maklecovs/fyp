@@ -6,7 +6,11 @@ const BcryptWrapper = require('../models/bcryptWrapper');
 
 router.get('/', async (req, res) => {
     if (res.locals.isLoggedIn) {
-        res.redirect('/profile');
+        if (res.locals.isEmployer) {
+            res.redirect('profile-employer');
+        } else {
+            res.redirect('/profile');
+        }
     } else {
         res.render('login', {
             title: 'myJobs - Login',
