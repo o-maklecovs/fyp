@@ -9,6 +9,7 @@
                 <a href="/delete?id={{job.id}}">Delete</a>
             </div>
             {{else}}
+            {{#unless is_employer}}
             {{#if is_saved}}
             <div class="job-controls">
                 <button id="unsave-job">Unsave</button>
@@ -18,6 +19,7 @@
                 <button id="save-job">Save</button>
             </div>
             {{/if}}
+            {{/unless}}
             {{/if}}
             {{/if}}
         </div>
